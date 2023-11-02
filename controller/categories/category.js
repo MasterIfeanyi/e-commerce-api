@@ -36,7 +36,7 @@ class Category {
     }
 
     static async findCategory(req, res) {
-        const { categoryId } = req.params
+        const categoryId  = req.params.Id
         try {
             const products = await service.category.listAllFromCategory(categoryId)
             if (!products) {
@@ -51,14 +51,14 @@ class Category {
 
 
     static async updateCategory(req, res) {
-        const { categoryId } = req.params
+        const  categoryId  = req.params.Id
         const { name } = req.body
         try {
             const update = await service.category.updateCategory(name, categoryId)
             if (!update) {
-                return res.status(400).json(new ErrorResponse('category was not updated', update))
+                return res.status(400).json(new ErrorResponse('category was not updated'))
             }
-            return res.status(200).json(new SuccessResponse('category was successfully updated', update))
+            return res.status(200).json(new SuccessResponse('category was successfully updated'))
 
         } catch (err) {
             console.log(err)
@@ -68,13 +68,13 @@ class Category {
     }
 
     static async deleteCategory(req, res) {
-        const { categoryId } = req.params
+        const  categoryId  = req.params.Id
         try {
             const deleteCategory = await service.category.deleteCategory(categoryId)
             if (!deleteCategory) {
                 return res.status(400).json(new ErrorResponse('category not deleted'))
             }
-            return res.status(200).json(new SuccessResponse('category was successfully deleted', update))
+            return res.status(200).json(new SuccessResponse('category was successfully deleted'))
 
         } catch (err) {
             console.log(err)

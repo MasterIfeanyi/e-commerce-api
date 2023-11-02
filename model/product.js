@@ -42,12 +42,6 @@ Product.init({
     },
 
 
-    category : {
-        type : DataTypes.STRING,
-        allowNull : false
-  
-    },
-
     variant : {
         type : DataTypes.STRING,
         allowNull : false

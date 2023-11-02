@@ -1,6 +1,6 @@
-const service = require('../../service/index')
-const { passwordResetEmail } = require('../../config/mailer')
-const { ErrorResponse, SuccessResponse } = require('../../middleware/index')
+const service = require('../../../service/index')
+const { passwordResetEmail } = require('../../../config/mailer')
+const { ErrorResponse, SuccessResponse } = require('../../../middleware/index')
 const jwt = require('jsonwebtoken')
 const bycrypt = require('bcrypt')
 const { v4: uuid } = require('uuid')
@@ -22,7 +22,7 @@ class UserAuth {
             }
         } catch (err) {
             console.log(err)
-            return (res.status(500).json(new ErrorResponse('user registration Failed')))
+            return (res.status(500).json(new ErrorResponse('User registration Failed')))
 
         }
     }
@@ -76,7 +76,7 @@ class UserAuth {
 
         } catch (err) {
             console.log(err)
-            return (res.status(500).json(new ErrorResponse("refresh Token verification failed")))
+            return (res.status(500).json(new ErrorResponse("Refresh Token verification failed")))
 
         }
 
@@ -137,7 +137,7 @@ class UserAuth {
 
         } catch (err) {
             console.log(" Error loggin out User ", err)
-            return (res.status(500).json(new ErrorResponse("user logout failed")))
+            return (res.status(500).json(new ErrorResponse("User logout failed")))
 
         }
 

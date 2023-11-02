@@ -44,7 +44,7 @@ class Admin {
 
 
     static async deleteUser(req, res) {
-        const userId = req.params
+        const userId = req.params.userId
         try {
             const deleteUser = service.user.deleteUser(userId)
             if (!deleteUser) {

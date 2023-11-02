@@ -2,9 +2,9 @@ const { SuccessResponse } = require('../../middleware/successHandler')
 const { ErrorResponse } = require('../../middleware/errorHandler')
 const service = require('../../service')
 
-class Storefront {
+class Catalog {
 
-    static async findProduct() {
+    static async productDetails() {
         const { productId } = req.params
         try {
             const getProduct = await service.productService.findProducts(productId)
@@ -36,4 +36,4 @@ class Storefront {
 
 }
 
-module.exports = { Storefront }
+module.exports = { Catalog }

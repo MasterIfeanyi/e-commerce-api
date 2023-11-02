@@ -9,11 +9,11 @@ class ProductService {
         this.model = model
     }
 
-    async createProduct(name, description, images, brand, price, category, variant, availability, id) {
+    async createProduct(name, description, images, brand, price,  variant, availability, id, categoryId) {
         try {
             const result = await this.model.create({
                 name: name, description: description, images: [images], brand: brand,
-                price: price, category: category, variant: variant, availability: availability, userId: id
+                price: price,  variant: variant, availability: availability, userId: id, categoryId : categoryId
             })
             return result
 
@@ -50,7 +50,7 @@ class ProductService {
 
     async listProducts() {
         try {
-            const result = await this.model.findAll({ attributes: [sequelize.fn('array_length', sequelize.col('images'), 1), 'fisrtElement'] })
+            const result = await this.model.findAll({ attributes: ['name','images', 'price'] })
             return result
 
         } catch (err) {
@@ -58,7 +58,7 @@ class ProductService {
         }
     }
 
-    async listProductFromCategories(category) {
+    async listProductFromCategories() {
         try {
             const result = await this.model.findAll({ where: { category: category } })
             return result

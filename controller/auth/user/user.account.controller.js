@@ -22,13 +22,7 @@ class UserAccount {
         try{
             const viewProfile = await service.profileService.viewProfile(req.id)
             if(viewProfile){
-                return res.status(200).json(new SuccessResponse('user profile successfully retrieved', {
-                     username : viewProfile[0].user.username,
-                     firstname : viewProfile[0].firstname,
-                     lastname : viewProfile[0].lastname,
-                     email : viewProfile[0].user.email,
-                     phone : viewProfile[0].phone,
-                }))
+                return res.status(200).json(new SuccessResponse('user profile successfully retrieved', viewProfile ))
             }
            return res.status(404).json( new ErrorResponse('user not found'))
           }catch(err){
@@ -39,28 +33,17 @@ class UserAccount {
 
     //Update Profile associated with the user
     static async updateProfile(req, res){
-        const { firstname, lastname, phone } = req.body
+        const { firstname, lastname, phone,  email } = req.body
         try{
             const upadateUserProfile = await service.profileService.updateProfile(firstname, lastname, phone, req.id)
-            if(upadateUserProfile){
-                return res.status(200).json(new SuccessResponse('user profile successfully retrieved', {
-                     username : viewProfile[0].user.username,
-                     firstname : viewProfile[0].firstname,
-                     lastname : viewProfile[0].lastname,
-                     email : viewProfile[0].user.email,
-                     phone : viewProfile[0].phone,
-                }))
+            const updateUser = await service.user.updateUser(email, req.id)
+            if(upadateUserProfile || updateUser){
+                return res.status(200).json(new SuccessResponse('user profile successfully updated'))
             }
-           return res.status(400).json( new ErrorResponse('user profile not updated', {
-            username : viewProfile[0].user.username,
-            firstname : viewProfile[0].firstname,
-            lastname : viewProfile[0].lastname,
-            email : viewProfile[0].user.email,
-            phone : viewProfile[0].phone,
-           } ))
+           return res.status(400).json( new ErrorResponse('user profile not updated'))
           }catch(err){
             console.log(err)
-            return res.status(500).json( new ErrorResponse('Error retrieving profile'))
+            return res.status(500).json( new ErrorResponse('Error updating profile'))
           }
 
     }

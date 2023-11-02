@@ -16,7 +16,7 @@ class UserProfileService {
 
     async viewProfile(id){
         try {
-            const result = await this.model.findAll({ where : { userId : id}, include : db.userModel.User})
+            const result = await this.model.findAll({ where : { userId : id}, include : [{ model: db.userModel.User, attributes : ['username', 'email']}], attributes : ['firstname','lastname','phone']})
             return result
         } catch (err) {
             throw err
@@ -26,7 +26,7 @@ class UserProfileService {
     async updateProfile(firstname, lastname,  phone , id) {
         try {
             const result = await this.model.update({ firstname: firstname, lastname: lastname, phone: phone }, { where: { userId: id } })
-            
+
             return result
         } catch (err) {
             throw err

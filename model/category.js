@@ -5,6 +5,7 @@ require('dotenv').config()
 class Category extends Model { }
 
 Category.init({
+    
     id : {
         type : DataTypes.BIGINT,
         primaryKey : true,

@@ -11,7 +11,7 @@ class Seller {
     //add product and associate it with a user who has a seller role
     static async addProduct(req, res) {
         try {
-            const { name, description, brand, price, category, variant, availability } = req.body
+            const { name, description, brand, price, variant, availability, categoryId } = req.body
             const images = req.files ? req.files : null
             if (images === null) {
                 return res.status(400).json(new ErrorResponse('image field should not be empty!'))
@@ -23,15 +23,14 @@ class Seller {
                 })
                 imageUrls.push(uploadProductImages.secure_url)
             }
-            const findCategory = await service.category.findCategory(category)
-            if(findCategory){
-                const newProduct = await service.productService.createProduct(name, description, imageUrls, brand, price, category, variant, availability, req.id)
-                await service.category.findAddToCategory(category, newProduct)
+            const findCategory = await service.category.findCategory(categoryId)
+            if (!findCategory) {
+                res.status(400).json(new ErrorResponse('category does not exist '))
+            } else {
+                const newProduct = await service.productService.createProduct(name, description, imageUrls, brand, price, variant, availability, req.id, categoryId)
                 return res.status(201).json(new SuccessResponse(' succesfully added a product', newProduct))
-            }else{
-                 res.status(400).json(new ErrorResponse(' category does not exist '))   
             }
-           
+
             return res.status(400).json(new ErrorResponse(' product was not added '))
         } catch (err) {
             console.log(err)
@@ -46,7 +45,7 @@ class Seller {
     static async listProducts(req, res) {
         try {
             const products = await service.productService.listSellerProducts(req.id)
-            if (products.length!==0) {
+            if (products.length !== 0) {
                 return res.status(200).json(new SuccessResponse('produtcs succesfully retrieved', products))
             }
             return res.status(200).json(new ErrorResponse('no product found', products))
@@ -64,10 +63,10 @@ class Seller {
         const { name, description, brand, price, category, variant, availability } = req.body
         try {
             const updateProductViaId = await service.productService.updateSellerProduct(productId, name, description, brand, price, category, variant, availability, req.id)
-            if (updateProductViaId) {
-                return res.status(200).json(new SuccessResponse('product was updated successfully', updateProductViaId))
+            if (!updateProductViaId) {
+                return res.status(400).json(new ErrorResponse('product was not updated '))
             }
-            return res.status(400).json(new ErrorResponse('product was not updated '))
+            return res.status(200).json(new SuccessResponse('product was updated successfully', updateProductViaId))
         } catch (err) {
             return res.status(500).json(new ErrorResponse('Error updating Product'))
         }
@@ -80,10 +79,10 @@ class Seller {
         const productId = req.params
         try {
             const deleteProductViaId = await service.productService.deleteSellerProduct(req.id, productId)
-            if (deleteProductViaId) {
-                return res.status(200).json(new SuccessResponse('product was successfully deleted'))
+            if (!deleteProductViaId) {
+                return res.status(400).json(new ErrorResponse('product was not deleted'))
             }
-            return res.status(400).json(new ErrorResponse(' product was not deleted'))
+            return res.status(200).json(new SuccessResponse('product was successfully deleted'))
 
         } catch (err) {
             return res.status(500).json(new ErrorResponse('Error deleting product'))

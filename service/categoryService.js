@@ -29,18 +29,18 @@ class CategoryService {
 
     async updateCategory(name, id){
         try{
-            const result = await this.model.update({ name : name, where : { id : id}})
+            const result = await this.model.update({ name : name}, { where : { id : id }})
             return result
         }catch(err){
             throw err
         }
     }
 
-    async findAddToCategory(category, product){
+    async findCategory(categoryId){
         try{
-            const result1 = await this.model.findOne({ where : { name : category }})
-            const result2 =  await result1.addProduct(product)
-            return result2
+            const result = await this.model.findOne({ where : { id : categoryId }})
+            // const result2 =  await result1.addProduct(product)
+            return result
         }catch(err){
             throw err
         }
@@ -49,8 +49,8 @@ class CategoryService {
     async listAllFromCategory(id){
         try{
             const result1 = await this.model.findAll({ where : { id : id }})
-            const result2 = await result1.getProduct()
-            return result2
+            // const result2 = await result1.getProduct()
+            return result1
         }catch(err){
             throw err
         }
@@ -58,7 +58,7 @@ class CategoryService {
 
     async deleteCategory(id){
         try{
-            const result = await this.model.delete({ where : { id : id}})
+            const result = await this.model.destroy({ where : { id : id}})
             return result
         }catch(err){
             throw err

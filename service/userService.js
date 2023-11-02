@@ -57,7 +57,7 @@ class User {
         try{
 
         }catch(err){
-            
+
         }
 
     }
@@ -71,17 +71,19 @@ class User {
         }
     }
 
-    async updateUser(){
+    async updateUser(email, id){
         try{
-            const result = await update({ })
+            const result = await this.model.update({email : email }, { where : {id : id}})
+            return result
         }catch(err){
+            throw err
 
         }
     }
 
     async deleteUser(id){
         try{
-            const result = await this.model.delete({ where : { id : id}})
+            const result = await this.model.destroy({ where : { id : id}})
             return result
         }catch(err){
             throw err
