@@ -4,33 +4,19 @@ const service = require('../../service')
 
 class Catalog {
 
-    static async productDetails() {
-        const { productId } = req.params
+    static async productDetails(req, res) {
+        const  productId  = req.params.productId
         try {
             const getProduct = await service.productService.findProducts(productId)
-            if (getProduct) {
-                return res.status(200).json(new SuccessResponse(' products successfully retrieved', getProduct))
+            if (!getProduct) {
+                return res.status(400).json(new ErrorResponse('product not retrieved'))
             }
-            return res.status(400).json(new ErrorResponse('product not retrieved'))
+            return res.status(200).json(new SuccessResponse(' products successfully retrieved', getProduct))
         } catch (err) {
             console.log(err)
             return res.status(500).json(new ErrorResponse(' Error retrieving products'))
 
         }
-    }
-
-    static async findProduct(id){
-        try{
-            const findProduct = null
-            if(findProduct){
-                return res.status(200).json(new SuccessResponse(' product successfully retrieved', findProduct))
-            } 
-            return res.status(400).json(new ErrorResponse('product not found'))
-        }catch(err){
-            console.log(err)
-            return res.status(500).json(new ErrorResponse(' Error retrieving product'))
-        }
-
     }
 
 

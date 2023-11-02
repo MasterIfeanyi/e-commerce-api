@@ -26,9 +26,7 @@ class ProductService {
     async listSellerProducts(id) {
         try {
             const result = await this.model.findAll({
-                where: { userId: id }, attributes: [
-                    'id', 'name', 'description', 'images', 'brand', 'price', 'category', 'variant', 'availability'
-                ]
+                where: { userId: id }
             })
             return result
 
@@ -38,9 +36,9 @@ class ProductService {
     }
 
 
-    async findProducts(id) {
+    async findProducts(productId) {
         try {
-            const result = await this.model.findAll({ where: { id: id } })
+            const result = await this.model.findAll({ where: { id: productId } })
             return result
 
         } catch (err) {
@@ -58,9 +56,9 @@ class ProductService {
         }
     }
 
-    async listProductFromCategories() {
+    async listProductFromCategory(categoryId) {
         try {
-            const result = await this.model.findAll({ where: { category: category } })
+            const result = await this.model.findAll({ where: { categoryId: categoryId }, attributes : ['name', 'images', 'price'] })
             return result
         } catch (err) {
             throw err
@@ -94,7 +92,7 @@ class ProductService {
 
     async deleteSellerProduct(id, productId) {
         try {
-            const deleteProduct = await this.model.delete({ where: { userId: id, productId: productId } })
+            const deleteProduct = await this.model.destroy({ where: {id: productId , userId: id, } })
             return deleteProduct
         } catch (err) {
             throw err

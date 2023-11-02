@@ -6,7 +6,7 @@ class Cart {
     
     static async addTocart(req, res){
         try{
-            const addProductToCart = await null 
+            const addProductToCart =  null 
 
         }catch(err){
 

@@ -7,10 +7,10 @@ class UserAccount {
         const { firstname, lastname, phone} = req.body
         try{
             const addProfile = await service.profileService.createProfile(firstname, lastname, phone, req.id)
-            if(addProfile){
-                return res.status(200).json(new SuccessResponse('user profile successfully created', addProfile))
+            if(!addProfile){
+                return res.status(404).json( new ErrorResponse('user profile not created'))
             }
-           return res.status(404).json( new ErrorResponse('user profile not created'))
+            return res.status(200).json(new SuccessResponse('user profile successfully created', addProfile))
           }catch(err){
             console.log(err)
             return res.status(500).json( new ErrorResponse('Error creating user profile'))
@@ -21,10 +21,10 @@ class UserAccount {
     static async getProfile(req, res){
         try{
             const viewProfile = await service.profileService.viewProfile(req.id)
-            if(viewProfile){
-                return res.status(200).json(new SuccessResponse('user profile successfully retrieved', viewProfile ))
+            if(!viewProfile){
+                return res.status(404).json( new ErrorResponse('user not found'))
             }
-           return res.status(404).json( new ErrorResponse('user not found'))
+            return res.status(200).json(new SuccessResponse('user profile successfully retrieved', viewProfile ))
           }catch(err){
             console.log(err)
             return res.status(500).json( new ErrorResponse('Error retrieving profile'))
@@ -37,10 +37,10 @@ class UserAccount {
         try{
             const upadateUserProfile = await service.profileService.updateProfile(firstname, lastname, phone, req.id)
             const updateUser = await service.user.updateUser(email, req.id)
-            if(upadateUserProfile || updateUser){
-                return res.status(200).json(new SuccessResponse('user profile successfully updated'))
+            if(!upadateUserProfile || !updateUser){
+                return res.status(400).json( new ErrorResponse('user profile not updated'))
             }
-           return res.status(400).json( new ErrorResponse('user profile not updated'))
+            return res.status(200).json(new SuccessResponse('user profile successfully updated'))
           }catch(err){
             console.log(err)
             return res.status(500).json( new ErrorResponse('Error updating profile'))
@@ -52,10 +52,10 @@ class UserAccount {
     static async deleteAccount(req, res){
         try{
             const deleteUserAcount = await service.profileService.updateProfile(firstname, lastname, phone, req.id)
-            if(deleteUserAcount){
-                return res.status(200).json(new SuccessResponse('user account successfully deleted', upadateUserProfile))
+            if(!deleteUserAcount){
+                return res.status(400).json( new ErrorResponse('user account not deleted', ))
             }
-           return res.status(400).json( new ErrorResponse('user account not deleted', ))
+            return res.status(200).json(new SuccessResponse('user account successfully deleted', upadateUserProfile))
           }catch(err){
             console.log(err)
             return res.status(500).json( new ErrorResponse('Error deleting account'))

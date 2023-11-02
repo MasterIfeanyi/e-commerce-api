@@ -12,7 +12,7 @@ class Authorize {
             if (err instanceof TokenExpiredError) {
                 return res.status(401).json(new ErrorResponse('access token  has expired Unauthorized!'))
             }
-            return res.status(401).json(new ErrorResponse(401, 'Unauthorized!'))
+            return res.status(401).json(new ErrorResponse('Unauthorized!'))
         } catch (err) {
             // console.log(err)
             return res.status(500).json(new ErrorResponse('Internal Server Error'))

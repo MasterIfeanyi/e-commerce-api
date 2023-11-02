@@ -36,13 +36,13 @@ class Category {
     }
 
     static async findCategory(req, res) {
-        const categoryId  = req.params.Id
+        const categoryId  = req.params.categoryId
         try {
-            const products = await service.category.listAllFromCategory(categoryId)
+            const products = await service.productService.listProductFromCategory(categoryId)
             if (!products) {
                 return res.status(404).json(new ErrorResponse('category  not found'))
             }
-            return res.status(200).json(new SuccessResponse('categories products was succesfully retrieved', products))
+            return res.status(200).json(new SuccessResponse('category products was succesfully retrieved', products))
         } catch (err) {
 
         }

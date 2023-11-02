@@ -43,15 +43,15 @@ class UserAuth {
             }
 
             const passwordMatch = bycrypt.compareSync(password, findUser.password.toString())
-            if (passwordMatch) {
-                const generateJwt = jwt.sign({ id: findUser.id }, process.env.JWT_SECRET, { expiresIn: '1h', algorithm: "HS256" })
-                const refreshToken = await service.refreshTokenService.createRefreshToken(findUser)
-                return res.status(200).json(new SuccessResponse('login successfull', {
-                    id: findUser.id, username: findUser.username, role: userRole, accessTokenExpiresIn: '1h', accessToken: generateJwt,
-                    refreshToken: refreshToken
-                }))
+            if (!passwordMatch) {
+                return res.status(401).json(new ErrorResponse('incorrect password'))
             }
-            return res.status(401).json(new ErrorResponse('incorrect password'))
+            const generateJwt = jwt.sign({ id: findUser.id }, process.env.JWT_SECRET, { expiresIn: '1h', algorithm: "HS256" })
+            const refreshToken = await service.refreshTokenService.createRefreshToken(findUser)
+            return res.status(200).json(new SuccessResponse('login successfull', {
+                id: findUser.id, username: findUser.username, role: userRole, accessTokenExpiresIn: '1h', accessToken: generateJwt,
+                refreshToken: refreshToken
+            }))
         } catch (err) {
             console.log('error Logging in user ', err)
             return res.status(500).json(new ErrorResponse('Login failed'))
@@ -92,11 +92,11 @@ class UserAuth {
             const token = uuid()
             const tokenExpiration = Date.now() + 3600000 //1 hour expirationTime
             const createResetToken = service.resetPassword.ResetPasswordService.createResetToken(email, token, tokenExpiration)
-            if (createResetToken) {
-                passwordResetEmail(email, token)
-                return res.status(200).json(new SuccessResponse('reset email was succesfully sent '))
+            if (!createResetToken) {
+                return res.status(400).json(new SuccessResponse('reset email was not sent'))
             }
-            return res.status(400).json(new SuccessResponse('reset email was not sent'))
+            passwordResetEmail(email, token)
+            return res.status(200).json(new SuccessResponse('reset email was succesfully sent '))
         } catch (err) {
             console.log(err)
             return (res.status(500).json(new ErrorResponse("refresh Token verification failed")))
@@ -113,10 +113,10 @@ class UserAuth {
                 return res.status(400).json(new ErrorResponse('expired Token '))
             }
             const updatePassword = await service.user.updatePassword(newPassword, checkForTokenExistence.email)
-            if (updatePassword) {
-                return res.status(200).json(new SuccessResponse('password reset was successfull'))
+            if (!updatePassword) {
+                return res.status(400).json(new ErrorResponse('password reset was not successfull'))
             }
-            return res.status(400).json(new ErrorResponse('password reset was not successfull'))
+            return res.status(200).json(new SuccessResponse('password reset was successfull'))
         } catch (err) {
             console.log("Error reseting password", err.stack)
             return res.status(500).json(new ErrorResponse("Password reset failed"))
@@ -130,11 +130,11 @@ class UserAuth {
         try {
             const createInvalidToken = await service.validateService.createInvalidToken(accessToken)
             const deleteRefreshToken = await service.refreshTokenService.deleteToken(refreshToken)
-            if (createInvalidToken && deleteRefreshToken) {
-                return res.status(200).json(new SuccessResponse(' logout was succesfull'))
+            if (!createInvalidToken && !deleteRefreshToken) {
+                return res.status(200).json(new ErrorResponse(' logout was not succesfull'))
             }
-            return res.status(200).json(new ErrorResponse(' logout was not succesfull'))
-
+            return res.status(200).json(new SuccessResponse(' logout was succesfull'))
+          
         } catch (err) {
             console.log(" Error loggin out User ", err)
             return (res.status(500).json(new ErrorResponse("User logout failed")))

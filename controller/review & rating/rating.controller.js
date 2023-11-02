@@ -1,6 +1,5 @@
 
 
-
 class Rating {
 
     static async addReview(req, res){

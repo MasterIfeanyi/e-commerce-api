@@ -9,9 +9,11 @@ require('dotenv').config()
 var baseRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var sellerRouter = require('./routes/seller')
-var storefrontRouter = require('./routes/storefront')
+var storefrontRouter = require('./routes/storefront & catalog')
 var usersRouter = require('./routes/users')
 var adminRouter = require('./routes/admin')
+var ratingReviewRouter = require('./routes/rating & review')
+var cartCheckoutRouter = require('./routes/cart & checkout')
 
 //db config
 var entryPoint = require('./config/index')
@@ -35,7 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter )
+app.use('/', baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartCheckoutRouter )
 
 
 

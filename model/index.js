@@ -8,7 +8,7 @@ db.refreshTokenModel = require('./refreshtoken')
 db.invalidtokenModel = require('./invalidtoken')
 db.passwordresettokenModel = require('./passwordreset')
 db.cartModel = require('./cart')
-db.reviewModel = require('./reviev')
+db.reviewModel = require('./review')
 db.ratingModel = require('./rating')
 
 // M : M Assocaiation

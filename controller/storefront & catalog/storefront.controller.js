@@ -7,10 +7,10 @@ class Storefront {
     static async listAllProducts(req, res) {
         try {
             const getallProducts = await service.productService.listProducts()
-            if (getallProducts) {
-                return res.status(200).json(new SuccessResponse('products successfully retrieved', getallProducts))
+            if (!getallProducts) {
+                return res.status(400).json(new ErrorResponse('product not retrieved'))
             }
-            return res.status(400).json(new ErrorResponse('product not retrieved'))
+            return res.status(200).json(new SuccessResponse('products successfully retrieved', getallProducts))
         } catch (err) {
             console.log(err)
             return res.status(500).json(new ErrorResponse(' Error retrieving products'))

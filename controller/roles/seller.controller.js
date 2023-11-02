@@ -59,15 +59,16 @@ class Seller {
 
     //update a product associated with the user who has the seller role
     static async updateProduct(req, res) {
-        const productId = req.params
+        const productId = req.params.productId
         const { name, description, brand, price, category, variant, availability } = req.body
         try {
             const updateProductViaId = await service.productService.updateSellerProduct(productId, name, description, brand, price, category, variant, availability, req.id)
             if (!updateProductViaId) {
                 return res.status(400).json(new ErrorResponse('product was not updated '))
             }
-            return res.status(200).json(new SuccessResponse('product was updated successfully', updateProductViaId))
+            return res.status(200).json(new SuccessResponse('product was updated successfully'))
         } catch (err) {
+            console.log(err)
             return res.status(500).json(new ErrorResponse('Error updating Product'))
         }
 
@@ -76,7 +77,7 @@ class Seller {
 
     //delete a product associated with the user who has the seller role
     static async deleteProduct(req, res) {
-        const productId = req.params
+        const productId = req.params.productId
         try {
             const deleteProductViaId = await service.productService.deleteSellerProduct(req.id, productId)
             if (!deleteProductViaId) {
@@ -85,6 +86,7 @@ class Seller {
             return res.status(200).json(new SuccessResponse('product was successfully deleted'))
 
         } catch (err) {
+            console.log(err)
             return res.status(500).json(new ErrorResponse('Error deleting product'))
         }
 

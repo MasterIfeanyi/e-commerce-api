@@ -1,6 +1,7 @@
 const { db } = require('../model/index')
 
 class CartService {
+
     constructor(model) {
         this.model = model
     }
@@ -15,7 +16,7 @@ class CartService {
         }
     }
 
-    async viewCartItems(id) {
+    async viewCart(id) {
         try {
             const result = await this.model.findAll({ where: { userId: id } })
             return result
@@ -24,9 +25,18 @@ class CartService {
         }
     }
 
+    async updateCart(quantity, price, id){
+        try{
+            const result = await this.model.update({ quantity, price, where : { userId : id }})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
     async deleteCartItem(id, cartId){
         try{
-            const result = await this.model.delete({ where : { userId : id, cartId}})
+            const result = await this.model.destroy({ where : { userId : id, id : cartId}})
             return result
         }catch(err){
             throw err
@@ -34,3 +44,5 @@ class CartService {
         }
     }
 }
+
+module.exports = { CartService : new CartService(db.cartModel.Cart)}
