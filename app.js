@@ -2,10 +2,27 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-
 require('dotenv').config()
-// var cookie_Session = require('')
+
+//swagger config
+const options = {
+  definition : {
+      openapi : '3.0.0',
+      info : {
+          title : 'Ecommerce-Api',
+          description : 'This is an Ecommerce-Api ',
+          version : '1.0.0',
+      },
+  },
+
+  apis : ['./routes/*.js']
+}
+
+var swaggerJsdoc = require('swagger-jsdoc')
+var swaggerUi = require('swagger-ui-express')
+var swaggerSpec = swaggerJsdoc(options)
+
+
 var baseRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var sellerRouter = require('./routes/seller')
@@ -37,7 +54,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartCheckoutRouter )
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec), baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartCheckoutRouter )
+// app.use('/doc', )
 
 
 

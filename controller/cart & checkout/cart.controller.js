@@ -4,17 +4,18 @@ const service = require('../../service')
 
 class Cart {
 
+    //add product selected by user to cart
     static async addTocart(req, res) {
         const productId = req.params.id
-        const { quantity } = req.body
         try {
-            const product = await service.productService.findOneProduct(productId, req.id)
-            if (product.quantity >= quantity) {
-                const newCart = await service.cartService.createCart(productId, quantity, req.id)
+            const product = await service.productService.findOneProduct(productId)
+            if (product.quantity >= 1) {
+                const newCart = await service.cartService.createCart(productId, req.id)
                 if (!newCart) {
                     return res.status(400).json(new ErrorResponse('product not added to cart'))
                 }
-                await service.productService.decreaseQuantity(quantity, req.id)
+                await service.cartService.updateCart(1, req.id)
+                await service.productService.decreaseQuantity(1, productId)
                 return res.status(201).json(new SuccessResponse('product successfully added to cart', newCart))
             } else {
                 return res.status(400).json(new ErrorResponse(' product is out of stock'))
@@ -28,6 +29,7 @@ class Cart {
         }
     }
 
+    //list all items in the user cart
     static async listCart(req, res) {
         try {
             const cart = await service.cartService.viewCart(req.id)
@@ -41,30 +43,31 @@ class Cart {
         }
     }
 
+
+    //increase the Quantity of the product added to the user cart
     static async increaseCart(req, res) {
         const cartId = req.params.id
-        const { quantity } = req.body
         try {
-            const cart = await service.cartService.increaseCart(quantity, cartId, req.id)
-            if(!cart){
-                return res.status(400).json( new ErrorResponse('product quantity not increased'))
+            const cart = await service.cartService.increaseCart(cartId, req.id)
+            if (!cart) {
+                return res.status(404).json(new ErrorResponse('cart item not found'))
             }
-            return res.status(200).json( new SuccessResponse(' product quantity succesfully increased'))
+            return res.status(200).json(new SuccessResponse(' product quantity succesfully increased'))
         } catch (err) {
             console.log(err)
             return res.status(500).json(new ErrorResponse('Error increasing quantity'))
         }
     }
 
+    //decrease the Quantity of the product added to the user cart
     static async decreaseCart(req, res) {
         const cartId = req.params.id
-        const { quantity } = req.body
         try {
-            const cart = await service.cartService.decreaseCart(quantity, cartId, req.id)
-            if(!cart){
-                return res.status(400).json( new ErrorResponse('product quantity not decreased'))
+            const cart = await service.cartService.decreaseCart(cartId, req.id)
+            if (!cart) {
+                return res.status(404).json(new ErrorResponse('cart item not found'))
             }
-            return res.status(200).json( new SuccessResponse(' product quantity succesfully decreased'))
+            return res.status(200).json(new SuccessResponse(' product quantity succesfully decreased'))
         } catch (err) {
             console.log(err)
             return res.status(500).json(new ErrorResponse('Error decreasing quantity'))
@@ -72,15 +75,34 @@ class Cart {
     }
 
 
+    //get the subtotal of cart items added by the user
+    static async getSubtotal(req, res) {
+        const cartId = req.params.id
+        try {
+            const cart = await service.cartService.cartSubtotal(cartId, req.id)
+            if (!cart) {
+                return res.satus(404).json(new ErrorResponse('cart not found'))
+            }
+            return res.status(200).json(new SuccessResponse('subtotal successfully retrieved', cart))
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json(new ErrorResponse('Error retrieving cart subtotal'))
+        }
+
+    }
+
+
+    //delete an item from cart
     static async deleteCart(req, res) {
         const cartId = req.params.id
         try {
             const cart = await service.cartService.deleteCart(cartId, req.id)
             if (!cart) {
-                return res.status(400).json(new ErrorResponse('cart not deleted'))
+                return res.status(404).json(new ErrorResponse('cart item not found'))
             }
-            return res.status(200).json(new SuccessResponse('cart item deleted'))
+            return res.status(200).json(new SuccessResponse('cart item successfully deleted'))
         } catch (err) {
+            console.error(err)
             return res.status(500).json(new ErrorResponse('Error deleting cart item'))
         }
     }

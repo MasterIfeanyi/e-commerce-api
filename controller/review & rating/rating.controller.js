@@ -22,7 +22,7 @@ class Rating {
         try{
             const rating = await service.ratingService.findRating(ratingId)
             if(!rating){
-                return res.status(400).json(new ErrorResponse('rating not found')) 
+                return res.status(404).json(new ErrorResponse('rating not found')) 
             }
             return res.status(200).json(new SuccessResponse('rating successfully found', rating))
         }catch(err){
@@ -48,7 +48,7 @@ class Rating {
         try{
             const rate = await service.ratingService.updateRating(rating, ratingId, req.id)
             if(!rate){
-                return res.status(400).json(new ErrorResponse('rating not updated'))   
+                return res.status(404).json(new ErrorResponse('rating not found'))   
             }
             return res.status(200).json(new SuccessResponse('rating successfully updated')) 
         }catch(err){
@@ -64,7 +64,7 @@ class Rating {
         try{
             const rating = await service.ratingService.deleteRating(ratingId, req.id)
             if(!rating){
-                return res.status(400).json(new ErrorResponse('rating not deleted'))   
+                return res.status(400).json(new ErrorResponse('rating not found'))   
             }
             return res.status(200).json(new SuccessResponse('rating successfully deleted'))
         }catch(err){

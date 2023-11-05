@@ -14,5 +14,7 @@ router.patch('/carts/decrease/:id', middleware.userTokenVerification, middleware
 
 router.delete('/carts/product/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.deleteCart )
 
+router.get('/carts/subtotal/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.getSubtotal)
+
 
 module.exports = router

@@ -24,7 +24,7 @@ class Review {
         try{
             const review = await service.reviewService.findReview(reviewId)
             if(!review){
-                return res.status(400).json(new ErrorResponse('review not retrieved'))
+                return res.status(404).json(new ErrorResponse('review not found'))
             }
             return res.status(200).json(new SuccessResponse('review retrieved succesfully', review))
         }catch(err){
@@ -53,7 +53,7 @@ class Review {
         try{
             const review = await service.reviewService.updateReview(title, content, reviewId, req.id)
             if(!review){
-                return res.status(400).json(new ErrorResponse('review not updated'))  
+                return res.status(404).json(new ErrorResponse('review not found'))  
             }
             return res.status(200).json(new SuccessResponse('review successfully updated'))
         }catch(err){
@@ -67,7 +67,7 @@ class Review {
         try{
             const review = await service.reviewService.deleteReview(reviewId, req.id)
             if(!review){
-                return res.status(400).json(new ErrorResponse('review not deleted')) 
+                return res.status(404).json(new ErrorResponse('review not found')) 
             }
             return res.status(200).json(new SuccessResponse('review successfully deleted'))
         }catch(err){

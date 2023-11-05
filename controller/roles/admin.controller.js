@@ -9,11 +9,11 @@ class Admin {
         try {
             const newUser = await service.user.createUser(username, email, password)
             if (!newUser)
-                return res.status(401).json(new ErrorResponse('uanble to add a new user'))
+                return res.status(400).json(new ErrorResponse('unable to add a new user'))
             if (role) {
                 const roles = await service.role.findRole(role)
                 roles && role.length > 0 ? newUser.setRoles(roles) : newUser.setRoles([1])
-                return res.status(201).json(new SuccessResponse(' new User was successfully added', {
+                return res.status(201).json(new SuccessResponse(' new user was successfully added', {
                     userId: newUser.id, username: newUser.username, email: newUser.email
                 }))
             }
@@ -31,7 +31,7 @@ class Admin {
             if (!listUser) {
                 return res.status(400).json(new ErrorResponse('users  not retrieved'))
             } 
-              return res.status(200).json(new SuccessResponse(' users succesfully retrieved', listUser))
+              return res.status(200).json(new SuccessResponse('users succesfully retrieved', listUser))
         } catch (err) {
             console.log(err)
             return (res.status(500).json(new ErrorResponse('Error retrieving user')))
@@ -45,9 +45,9 @@ class Admin {
         try {
             const deleteUser = service.user.deleteUser(userId)
             if (!deleteUser) {
-                return res.status(400).json(new ErrorResponse('user  not deleted'))
+                return res.status(404).json(new ErrorResponse('user not found'))
             }
-            return res.status(200).json(new SuccessResponse(' user was succesfully deleted'))
+            return res.status(200).json(new SuccessResponse(' user succesfully deleted'))
 
         } catch (err) {
             console.log(err)

@@ -12,7 +12,7 @@ class UserAuth {
         try {
             const newUser = await service.user.createUser(username, email, password)
             if (!newUser)
-                return res.status(401).json(new ErrorResponse('user registration was not succesfull'))
+                return res.status(400).json(new ErrorResponse('user registration was not succesfull'))
             if (role) {
                 const roles = await service.role.findRole(role)
                 roles && role.length > 0 ? newUser.setRoles(roles) : newUser.setRoles([1])
@@ -114,12 +114,12 @@ class UserAuth {
             }
             const updatePassword = await service.user.updatePassword(newPassword, checkForTokenExistence.email)
             if (!updatePassword) {
-                return res.status(400).json(new ErrorResponse('password reset was not successfull'))
+                return res.status(400).json(new ErrorResponse('password update was not successfull'))
             }
-            return res.status(200).json(new SuccessResponse('password reset was successfull'))
+            return res.status(200).json(new SuccessResponse('password update was successfull'))
         } catch (err) {
             console.log("Error reseting password", err.stack)
-            return res.status(500).json(new ErrorResponse("Password reset failed"))
+            return res.status(500).json(new ErrorResponse("Password update failed"))
         }
 
     }
@@ -131,7 +131,7 @@ class UserAuth {
             const createInvalidToken = await service.validateService.createInvalidToken(accessToken)
             const deleteRefreshToken = await service.refreshTokenService.deleteToken(refreshToken)
             if (!createInvalidToken && !deleteRefreshToken) {
-                return res.status(200).json(new ErrorResponse(' logout was not succesfull'))
+                return res.status(400).json(new ErrorResponse(' logout was not succesfull'))
             }
             return res.status(200).json(new SuccessResponse(' logout was succesfull'))
           

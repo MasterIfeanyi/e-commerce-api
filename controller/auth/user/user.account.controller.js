@@ -8,7 +8,7 @@ class UserAccount {
         try{
             const newProfile = await service.profileService.createProfile(firstname, lastname, phone, req.id)
             if(!newProfile){
-                return res.status(404).json( new ErrorResponse('user profile not created'))
+                return res.status(400).json( new ErrorResponse('user profile not created'))
             }
             return res.status(200).json(new SuccessResponse('user profile successfully created', newProfile))
           }catch(err){

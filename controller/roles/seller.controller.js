@@ -29,7 +29,7 @@ class Seller {
             }
             const findCategory = await service.category.findCategory(categoryId)
             if (!findCategory) {
-                res.status(400).json(new ErrorResponse('category does not exist '))
+                res.status(404).json(new ErrorResponse('category not found '))
             } else {
                 const newProduct = await service.productService.createProduct(name, description, uploadDisplayImage.secure_url , imageUrls, brand, price, variant, availability, quantity, req.id, categoryId)
                 return res.status(201).json(new SuccessResponse(' succesfully added a product', newProduct))
@@ -49,10 +49,10 @@ class Seller {
     static async listProducts(req, res) {
         try {
             const products = await service.productService.listSellerProducts(req.id)
-            if (products.length !== 0) {
-                return res.status(200).json(new SuccessResponse('produtcs succesfully retrieved', products))
+            if (products.length === 0) {
+                return res.status(400).json(new ErrorResponse('products was not retrieved', products))
             }
-            return res.status(200).json(new ErrorResponse('no product found', products))
+            return res.status(200).json(new SuccessResponse('produtcs succesfully retrieved', products))
         } catch (err) {
             console.log(err);
             return (res.status(500).json(new ErrorResponse('Error retrieving products')))
@@ -68,7 +68,7 @@ class Seller {
         try {
             const updateProductViaId = await service.productService.updateSellerProduct(productId, name, description, brand, price, category, variant, availability, req.id)
             if (!updateProductViaId) {
-                return res.status(400).json(new ErrorResponse('product was not updated '))
+                return res.status(404).json(new ErrorResponse('product not found '))
             }
             return res.status(200).json(new SuccessResponse('product was updated successfully'))
         } catch (err) {
@@ -85,7 +85,7 @@ class Seller {
         try {
             const deleteProductViaId = await service.productService.deleteSellerProduct(req.id, productId)
             if (!deleteProductViaId) {
-                return res.status(400).json(new ErrorResponse('product was not deleted'))
+                return res.status(404).json(new ErrorResponse('product not found'))
             }
             return res.status(200).json(new SuccessResponse('product was successfully deleted'))
 

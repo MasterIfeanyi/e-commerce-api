@@ -56,7 +56,7 @@ class Category {
         try {
             const category = await service.category.updateCategory(name, categoryId)
             if (!category) {
-                return res.status(400).json(new ErrorResponse('category was not updated'))
+                return res.status(404).json(new ErrorResponse('category not found'))
             }
             return res.status(200).json(new SuccessResponse('category was successfully updated'))
 
@@ -72,7 +72,7 @@ class Category {
         try {
             const category = await service.category.deleteCategory(categoryId)
             if (!category) {
-                return res.status(400).json(new ErrorResponse('category not deleted'))
+                return res.status(404).json(new ErrorResponse('category not found'))
             }
             return res.status(200).json(new SuccessResponse('category was successfully deleted'))
 

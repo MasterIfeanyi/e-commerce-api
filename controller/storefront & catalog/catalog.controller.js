@@ -9,7 +9,7 @@ class Catalog {
         try {
             const product = await service.productService.findProducts(productId)
             if (!product) {
-                return res.status(400).json(new ErrorResponse('product not retrieved'))
+                return res.status(404).json(new ErrorResponse('product not found'))
             }
             return res.status(200).json(new SuccessResponse(' products successfully retrieved', product))
         } catch (err) {

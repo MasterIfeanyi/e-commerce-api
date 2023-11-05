@@ -46,18 +46,18 @@ class ProductService {
         }
     }
 
-    async findOneProduct(productId, userId){
+    async findOneProduct(productId){
         try{
-            const result = await this.model.findOne({ where : { id : productId, userId : userId}})
+            const result = await this.model.findOne({ where : { id : productId}})
             return result
         }catch(err){
             throw err
         }
     }
 
-    async decreaseQuantity(productQuantity, userId){
+    async decreaseQuantity(productQuantity, productId){
         try{
-            const result = await this.model.update({ quantity : Sequelize.literal(`quantity - ${productQuantity}`)}, { where : { userId : userId}})
+            const result = await this.model.update({ quantity : Sequelize.literal(`quantity - ${productQuantity}`)}, { where : { id : productId}})
             return result
         }catch(err){
             throw err
