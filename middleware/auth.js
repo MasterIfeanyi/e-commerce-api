@@ -52,12 +52,12 @@ class Authorize {
                 }
                 break
             }
-            return res.status(403).json(new ErrorResponse('require seller Role to Access this route'))
+            return res.status(403).json(new ErrorResponse('require seller role to access this route'))
 
 
         } catch (err) {
             console.log('validation ', err)
-            return res.status(401).json(new ErrorResponse('unable to validate user role'))
+            return res.status(401).json(new ErrorResponse('unable to validate admind role'))
         }
 
 
@@ -73,7 +73,7 @@ class Authorize {
                     return next()
                 }
             }
-            return res.status(403).json(new ErrorResponse('require admin Role to Access this route'))
+            return res.status(403).json(new ErrorResponse('require admin role to access this route'))
 
 
         } catch (err) {
@@ -83,6 +83,22 @@ class Authorize {
 
 
 
+    }
+
+    static async user(req, res){
+        try{
+            const user = await service.user.findUserById(req.id)
+            const role = await user.getRoles()
+            for(let i = 0; i < role; i++){
+                if(role[i].name === 'user'){
+                    return next()
+                }
+            }
+            return res.status(403).json(new ErrorResponse('require user role to acccess this route'))
+        }catch(err){
+            console.log('validation ', err)
+            return res.status(401).json(new ErrorResponse('unable to validate user role'))
+        }
     }
 
 }

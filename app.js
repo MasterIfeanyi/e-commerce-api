@@ -14,20 +14,20 @@ var usersRouter = require('./routes/users')
 var adminRouter = require('./routes/admin')
 var ratingReviewRouter = require('./routes/rating & review')
 var cartCheckoutRouter = require('./routes/cart & checkout')
+var { dbConnection } = require('./config/db.config')
 
-//db config
-var entryPoint = require('./config/index')
-
-async function dbConnection() {
+//database Connection
+async function databaseConnection() {
   try {
-    await entryPoint.config.dbConnection.authenticate()
+    await dbConnection.authenticate()
     console.log(' database connection was established succesfully ')
   } catch (err) {
     console.log('connection was not established an error occured ', err)
 
   }
 }
-dbConnection()
+
+databaseConnection()
 
 
 var app = express();

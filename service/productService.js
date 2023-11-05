@@ -9,11 +9,11 @@ class ProductService {
         this.model = model
     }
 
-    async createProduct(name, description, images, brand, price,  variant, availability, id, categoryId) {
+    async createProduct(name, description, display_image, images, brand, price,  variant, availability, quantity, id, categoryId) {
         try {
             const result = await this.model.create({
-                name: name, description: description, images: [images], brand: brand,
-                price: price,  variant: variant, availability: availability, userId: id, categoryId : categoryId
+                name: name, description: description, display_image : display_image, images: [images], brand: brand,
+                price: price,  variant: variant, availability: availability, quantity : quantity, userId: id, categoryId : categoryId
             })
             return result
 
@@ -38,7 +38,7 @@ class ProductService {
 
     async findProducts(productId) {
         try {
-            const result = await this.model.findAll({ where: { id: productId } })
+            const result = await this.model.findAll({ where: { id: productId },  attributes: ['id','name', 'description', 'images', 'brand','price', 'variant', 'availability']  })
             return result
 
         } catch (err) {
@@ -46,9 +46,36 @@ class ProductService {
         }
     }
 
+    async findOneProduct(productId, userId){
+        try{
+            const result = await this.model.findOne({ where : { id : productId, userId : userId}})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
+    async decreaseQuantity(productQuantity, userId){
+        try{
+            const result = await this.model.update({ quantity : Sequelize.literal(`quantity - ${productQuantity}`)}, { where : { userId : userId}})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
+    async restoreQuantity(productQuantity, userId){
+        try{
+            const result = await this.model.update({ quantity : Sequelize.literal(`quantity + ${productQuantity}`) }, { where : {userId : userId}})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
     async listProducts() {
         try {
-            const result = await this.model.findAll({ attributes: ['name','images', 'price'] })
+            const result = await this.model.findAll({ attributes: ['id', 'name','display_image', 'price'] })
             return result
 
         } catch (err) {

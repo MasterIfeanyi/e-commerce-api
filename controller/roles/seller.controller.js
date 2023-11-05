@@ -11,11 +11,15 @@ class Seller {
     //add product and associate it with a user who has a seller role
     static async addProduct(req, res) {
         try {
-            const { name, description, brand, price, variant, availability, categoryId } = req.body
-            const images = req.files ? req.files : null
-            if (images === null) {
+            const { name, description, brand, price, variant, availability, quantity, categoryId } = req.body
+            const display_image = req.files.display_image ? req.files.display_image[0] : null
+            const images = req.files.images ? req.files.images : null
+            if (display_image===null && images === null) {
                 return res.status(400).json(new ErrorResponse('image field should not be empty!'))
             }
+            const uploadDisplayImage = await cloudinary.uploader.upload(display_image.path, {
+                resource_type : 'auto'
+            })
             const imageUrls = []
             for (let urls of images) {
                 const uploadProductImages = await cloudinary.uploader.upload(urls.path, {
@@ -27,7 +31,7 @@ class Seller {
             if (!findCategory) {
                 res.status(400).json(new ErrorResponse('category does not exist '))
             } else {
-                const newProduct = await service.productService.createProduct(name, description, imageUrls, brand, price, variant, availability, req.id, categoryId)
+                const newProduct = await service.productService.createProduct(name, description, uploadDisplayImage.secure_url , imageUrls, brand, price, variant, availability, quantity, req.id, categoryId)
                 return res.status(201).json(new SuccessResponse(' succesfully added a product', newProduct))
             }
 
@@ -59,7 +63,7 @@ class Seller {
 
     //update a product associated with the user who has the seller role
     static async updateProduct(req, res) {
-        const productId = req.params.productId
+        const productId = req.params.id
         const { name, description, brand, price, category, variant, availability } = req.body
         try {
             const updateProductViaId = await service.productService.updateSellerProduct(productId, name, description, brand, price, category, variant, availability, req.id)
@@ -77,7 +81,7 @@ class Seller {
 
     //delete a product associated with the user who has the seller role
     static async deleteProduct(req, res) {
-        const productId = req.params.productId
+        const productId = req.params.id
         try {
             const deleteProductViaId = await service.productService.deleteSellerProduct(req.id, productId)
             if (!deleteProductViaId) {

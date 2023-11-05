@@ -5,13 +5,13 @@ const service = require('../../service')
 class Catalog {
 
     static async productDetails(req, res) {
-        const  productId  = req.params.productId
+        const  productId  = req.params.id
         try {
-            const getProduct = await service.productService.findProducts(productId)
-            if (!getProduct) {
+            const product = await service.productService.findProducts(productId)
+            if (!product) {
                 return res.status(400).json(new ErrorResponse('product not retrieved'))
             }
-            return res.status(200).json(new SuccessResponse(' products successfully retrieved', getProduct))
+            return res.status(200).json(new SuccessResponse(' products successfully retrieved', product))
         } catch (err) {
             console.log(err)
             return res.status(500).json(new ErrorResponse(' Error retrieving products'))

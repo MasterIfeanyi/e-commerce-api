@@ -9,7 +9,7 @@ router.post('/register', validations.utils.signupValidation, validations.utils.v
 
 router.post('/login', validations.utils.loginValidation, validations.utils.validation, controller.userController.UserAuth.login)
 
-router.post('/refreshToken', validations.utils.refreshTokenValidation, validations.utils.validation, controller.userController.UserAuth.refreshAndVerifyToken)
+router.post('/refreshtoken', validations.utils.refreshTokenValidation, validations.utils.validation, controller.userController.UserAuth.refreshAndVerifyToken)
 
 router.post('/logout', validations.utils.logoutValidation, validations.utils.validation, controller.userController.UserAuth.logout)
 

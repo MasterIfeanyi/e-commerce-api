@@ -35,9 +35,9 @@ class ReviewService {
         }
     }
 
-    async updateReview(title, content, id) {
+    async updateReview(title, content, id, userId) {
         try {
-            const result = await this.model.update({ name, title, content, where: { userId: id } })
+            const result = await this.model.update({ title, content}, {where: { id : id,  userId : userId } })
             return result
         } catch (err) {
             throw err
@@ -46,7 +46,7 @@ class ReviewService {
 
     async deleteReview(id, userId) {
         try {
-            const result = await this.model.destroy({ id: id, where: { userId: userId } })
+            const result = await this.model.destroy({where: { id : id, userId: userId } })
             return result
         } catch (err) {
             throw err

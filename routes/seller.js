@@ -8,12 +8,12 @@ const middleware = require('../middleware/index')
 const validations = require('../utils/index')
 
 
-router.post('/products/add', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, upload.array('images', 3) , controller.sellerRoleController.Seller.addProduct)
+router.post('/sellers/product', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, upload.fields([{ name : 'display_image', maxCount : 1 }, { name : 'images', maxCount : 3}]) , controller.sellerRoleController.Seller.addProduct)
 
-router.get('/products-list',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.listProducts)
+router.get('/sellers/product-list',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.listProducts)
 
-router.patch('/products/update/:productId',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.updateProduct)
+router.patch('/sellers/product/:id',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.updateProduct)
 
-router.delete('/products/delete/:productId',middleware.userTokenVerification,  middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.deleteProduct)
+router.delete('/sellers/product/:id',middleware.userTokenVerification,  middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.deleteProduct)
 
 module.exports = router

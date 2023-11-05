@@ -64,7 +64,7 @@ class User {
 
     async getAllUser(){
         try{
-            const result = await this.model.findAll({ attributes : ['id','username', 'email']},{ inclue : db.profileModel.Profile})
+            const result = await this.model.findAll({ attributes : ['id','username', 'email'], include : [{ model: db.profileModel.Profile, attributes : ['firstname','lastname', 'phone']}]})
             return result
         }catch(err){
             throw err
@@ -81,9 +81,9 @@ class User {
         }
     }
 
-    async deleteUser(id){
+    async deleteUser(userId){
         try{
-            const result = await this.model.destroy({ where : { id : id}})
+            const result = await this.model.destroy({ where : { id : userId }})
             return result
         }catch(err){
             throw err

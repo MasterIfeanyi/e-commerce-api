@@ -5,22 +5,22 @@ require('dotenv').config()
 class Rating extends Model { }
 
 Rating.init({
-    id : {
-        type : DataTypes.BIGINT,
-        primaryKey : true,
-        autoIncrement : true,
-        allowNull : false
+    id: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
     },
 
-    rate : {
-        type : DataTypes.INTEGER,
-        allowNull : false
+    rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
     sequelize,
-    modelName : 'rating',
-    createdAt : true,
-    updatedAt : true
+    modelName: 'rating',
+    createdAt: true,
+    updatedAt: true
 })
 sequelize.sync()
 

@@ -6,9 +6,9 @@ class RatingService {
         this.model = model
     }
 
-    async createRating(rate, id) {
+    async createRating(rating, id) {
         try {
-            const result = await this.model.create({ rate: rate, userId: id })
+            const result = await this.model.create({ rating: rating, userId: id })
             return result
         } catch (err) {
             throw err
@@ -25,7 +25,7 @@ class RatingService {
         }
     }
 
-    async listReview() {
+    async listRatings() {
         try {
             const result = await this.model.findAll()
             return result
@@ -35,18 +35,18 @@ class RatingService {
         }
     }
 
-    async updateReview(rate, id) {
+    async updateRating(rating, ratingId, userId) {
         try {
-            const result = await this.model.update({ rate, where: { userId: id } })
+            const result = await this.model.update({ rating : rating}, {where: { id : ratingId, userId: userId } })
             return result
         } catch (err) {
             throw err
         }
     }
 
-    async deleteReview(id, userId) {
+    async deleteRating(id, userId) {
         try {
-            const result = await this.model.destroy({ id: id, where: { userId: userId } })
+            const result = await this.model.destroy({where: { id : id, userId: userId } })
             return result
         } catch (err) {
             throw err

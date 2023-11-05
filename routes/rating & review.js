@@ -4,26 +4,27 @@ const controller = require('../controller/index')
 const middleware = require('../middleware/index')
 
 //review routes
-router.post('/review/add')
+router.post('/reviews', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.addReview )
 
-router.get('/review-list')
+router.get('/reviews/review-list',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.listReviews )
 
-router.get('/reviews/:reviewId')
+router.get('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.reviewController.Review.findReview)
 
-router.patch('/reviews/update/:reviewId')
+router.patch('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.updateReview)
 
-router.delete('/review/delet/:reviewId')
+router.delete('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.deleteReview)
+
 
 //rating routes
-router.post('/ratings/add')
+router.post('/ratings',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.addRating)
 
-router.get('/ratings/list')
+router.get('/ratings/rating-list',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.listRatings)
 
-router.get('/ratings/:rateId')
+router.get('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.ratingController.Rating.findRating)
 
-router.patch('/ratings/update/:rateId')
+router.patch('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.updateRating)
 
-router.delete('/ratings/delete/:rateId')
+router.delete('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.deleteRating)
 
 
 

@@ -4,9 +4,15 @@ const controller = require('../controller/index')
 const middleware = require('../middleware/index')
 
 
-router.post('/carts/add', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth )
+router.post('/carts/product/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.addTocart )
 
-router.post('/carts/remove/:productId')
+router.get('/carts/product',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.listCart)
+
+router.patch('/carts/increase/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.increaseCart)
+
+router.patch('/carts/decrease/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.decreaseCart)
+
+router.delete('/carts/product/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.deleteCart )
 
 
 module.exports = router

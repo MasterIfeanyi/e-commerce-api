@@ -36,13 +36,13 @@ class Category {
     }
 
     static async findCategory(req, res) {
-        const categoryId  = req.params.categoryId
+        const categoryId  = req.params.id
         try {
-            const products = await service.productService.listProductFromCategory(categoryId)
-            if (!products) {
+            const category = await service.productService.listProductFromCategory(categoryId)
+            if (!category) {
                 return res.status(404).json(new ErrorResponse('category  not found'))
             }
-            return res.status(200).json(new SuccessResponse('category products was succesfully retrieved', products))
+            return res.status(200).json(new SuccessResponse('category products was succesfully retrieved', category))
         } catch (err) {
 
         }
@@ -51,11 +51,11 @@ class Category {
 
 
     static async updateCategory(req, res) {
-        const  categoryId  = req.params.Id
+        const  categoryId  = req.params.id
         const { name } = req.body
         try {
-            const update = await service.category.updateCategory(name, categoryId)
-            if (!update) {
+            const category = await service.category.updateCategory(name, categoryId)
+            if (!category) {
                 return res.status(400).json(new ErrorResponse('category was not updated'))
             }
             return res.status(200).json(new SuccessResponse('category was successfully updated'))
@@ -68,10 +68,10 @@ class Category {
     }
 
     static async deleteCategory(req, res) {
-        const  categoryId  = req.params.Id
+        const  categoryId  = req.params.id
         try {
-            const deleteCategory = await service.category.deleteCategory(categoryId)
-            if (!deleteCategory) {
+            const category = await service.category.deleteCategory(categoryId)
+            if (!category) {
                 return res.status(400).json(new ErrorResponse('category not deleted'))
             }
             return res.status(200).json(new SuccessResponse('category was successfully deleted'))

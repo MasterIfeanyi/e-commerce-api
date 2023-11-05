@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize')
-const sequelize = new Sequelize(`postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`,{ logging : false})
+const sequelize = new Sequelize(`postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`, { logging: false })
 require('dotenv').config()
 
 class User extends Model { }
@@ -33,7 +33,7 @@ User.init({
 
 }, {
     sequelize,
-    modelName : 'user',
+    modelName: 'user',
     createdAt: true,
     updatedAt: true
 

@@ -28,13 +28,10 @@ class Admin {
     static async listUser(req, res) {
         try {
             const listUser = await service.user.getAllUser()
-            if (!listUser.user) {
-                return res.status(200).json(new SuccessResponse(' users with no profile succesfully retrieved', listUser))
-            } else {
-                res.status(200).json(new SuccessResponse(' users with profle succesfully retrieved', listUser))
-            }
-            return res.status(400).json(new ErrorResponse('users  not retrieved'))
-
+            if (!listUser) {
+                return res.status(400).json(new ErrorResponse('users  not retrieved'))
+            } 
+              return res.status(200).json(new SuccessResponse(' users succesfully retrieved', listUser))
         } catch (err) {
             console.log(err)
             return (res.status(500).json(new ErrorResponse('Error retrieving user')))
@@ -44,7 +41,7 @@ class Admin {
 
 
     static async deleteUser(req, res) {
-        const userId = req.params.userId
+        const userId = req.params.id
         try {
             const deleteUser = service.user.deleteUser(userId)
             if (!deleteUser) {

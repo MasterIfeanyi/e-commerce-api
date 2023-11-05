@@ -5,34 +5,34 @@ require('dotenv').config()
 class Review extends Model { }
 
 Review.init({
-    id : {
-        type : DataTypes.BIGINT,
-        autoIncrement : true,
-        primaryKey : true,
-        allowNull : false
+    id: {
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
     },
 
-    name : {
-        type : DataTypes.STRING,
-        allowNull : false
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
 
-    title : {
-        type : DataTypes.STRING,
-        allowNull : false
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
 
     },
 
-    content : {
-        type : DataTypes.STRING,
-        allowNull : false
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false
 
     }
 }, {
     sequelize,
-    modelName : 'review',
-    createdAt : true,
-    updatedAt : true
+    modelName: 'review',
+    createdAt: true,
+    updatedAt: true
 })
 sequelize.sync()
 

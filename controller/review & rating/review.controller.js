@@ -20,13 +20,13 @@ class Review {
     }
 
     static async findReview(req, res){
-        const  Id  = req.params.Id
+        const  reviewId  = req.params.id
         try{
-            const review = await service.reviewService.findReview(Id)
+            const review = await service.reviewService.findReview(reviewId)
             if(!review){
                 return res.status(400).json(new ErrorResponse('review not retrieved'))
             }
-            return res.status(200).json(new SuccessResponse('review retrieved succesfully'))
+            return res.status(200).json(new SuccessResponse('review retrieved succesfully', review))
         }catch(err){
             console.log(err)
             return res.status(500).json(new ErrorResponse('Error retrieving review'))
@@ -36,36 +36,37 @@ class Review {
 
     static async listReviews(req, res){
         try{
-            const listreviews = await service.reviewService.listReview()
-            if(!listreviews){
+            const reviews = await service.reviewService.listReview()
+            if(!reviews){
                 return res.status(400).json(new ErrorResponse('review not retrieved'))
             }
-            return res.status(200).json(new SuccessResponse('reviews successfully retrieved', listreviews))
+            return res.status(200).json(new SuccessResponse('reviews successfully retrieved', reviews))
         }catch(err){
             console.log(err)
             return res.status(500).json(new ErrorResponse('Error retrieving review'))
         }
     }
 
-    static async updateReviews(req, res){
-        const { title, content,  } = req.body
+    static async updateReview(req, res){
+        const reviewId = req.params.id
+        const { title, content  } = req.body
         try{
-            const listreviews = await service.reviewService.updateReview(title, content)
-            if(!listreviews){
+            const review = await service.reviewService.updateReview(title, content, reviewId, req.id)
+            if(!review){
                 return res.status(400).json(new ErrorResponse('review not updated'))  
             }
-            return res.status(200).json(new SuccessResponse('reviews successfully updated', listreviews))
+            return res.status(200).json(new SuccessResponse('review successfully updated'))
         }catch(err){
             console.log(err)
             return res.status(500).json(new ErrorResponse('Error updating review'))
         }
     }
 
-    static async deleteReviews(req, res){
+    static async deleteReview(req, res){
         const reviewId = req.params.id 
         try{
-            const deleterView = await service.reviewService.deleteReview(reviewId, req.id)
-            if(!deleterView){
+            const review = await service.reviewService.deleteReview(reviewId, req.id)
+            if(!review){
                 return res.status(400).json(new ErrorResponse('review not deleted')) 
             }
             return res.status(200).json(new SuccessResponse('review successfully deleted'))
