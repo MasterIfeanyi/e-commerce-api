@@ -77,9 +77,8 @@ class Cart {
 
     //get the subtotal of cart items added by the user
     static async getSubtotal(req, res) {
-        const cartId = req.params.id
         try {
-            const cart = await service.cartService.cartSubtotal(cartId, req.id)
+            const cart = await service.cartService.cartSubtotal(req.id)
             if (!cart) {
                 return res.satus(404).json(new ErrorResponse('cart not found'))
             }

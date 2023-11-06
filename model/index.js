@@ -1,4 +1,5 @@
 const db = {}
+db.sequelize = require('sequelize')
 db.userModel = require('./user')
 db.roleModel = require('./role')
 db.productModel = require('./product')
@@ -17,14 +18,14 @@ db.userModel.User.belongsToMany(db.roleModel.Role, { through : 'user_role', onDe
 db.roleModel.Role.belongsToMany(db.userModel.User, { through : 'user_role', onDelete : 'CASCADE'})
 
 // 1 : 1 Association
-db.refreshTokenModel.RefreshToken.belongsTo(db.userModel.User, { foreignKey : 'id',  onDelete : 'CASCADE' })
-
 db.userModel.User.hasOne(db.refreshTokenModel.RefreshToken, {  foreignKey : 'id', onDelete : 'CASCADE'})
 
-// 1 : 1 Association
-db.profileModel.Profile.belongsTo(db.userModel.User, {  onDelete : 'CASCADE'})
+db.refreshTokenModel.RefreshToken.belongsTo(db.userModel.User, { foreignKey : 'id',  onDelete : 'CASCADE' })
 
+// 1 : 1 Association
 db.userModel.User.hasOne(db.profileModel.Profile, { onDelete : 'CASCADE'})
+
+db.profileModel.Profile.belongsTo(db.userModel.User, {  onDelete : 'CASCADE'})
 
 // 1 : M Association
 db.categoryModel.Category.hasMany(db.productModel.Product, {onDelete : 'CASCADE'})

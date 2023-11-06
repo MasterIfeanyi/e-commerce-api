@@ -59,9 +59,9 @@ class CartService {
         }
     }
 
-    async cartSubtotal(cartId, userId){
+    async cartSubtotal(userId){
         try{
-            const result1 = await this.model.findOne({ where: { id: cartId, userId: userId } })
+            const result1 = await this.model.findOne({ where: { userId: userId } })
             const total = result1.price * result1.quantity
             return total
         }catch(err){
