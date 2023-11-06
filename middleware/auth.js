@@ -21,7 +21,6 @@ class Authorize {
 
     static userTokenVerification(req, res, next) {
         const accessToken  = req.headers.authorization
-        try {
             if (!accessToken) {
                 return res.status(401).json(new ErrorResponse('access token is required!'))
             }
@@ -34,11 +33,6 @@ class Authorize {
                 req.id = decoded.id
                 next()
             })
-        } catch (err) {
-            // console.log(err)
-            return res.status(500).json(new ErrorResponse('Internal Server Error'))
-
-        }
     }
 
 
@@ -94,7 +88,7 @@ class Authorize {
                     return next()
                 }
             }
-            return res.status(403).json(new ErrorResponse('require user role to acccess this route'))
+            return res.status(403).json(new ErrorResponse('require user role to cccess this route'))
         }catch(err){
             console.log('validation ', err)
             return res.status(401).json(new ErrorResponse('unable to validate user role'))

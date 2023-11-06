@@ -18,6 +18,15 @@ This is an ECOMMERCE API built with Nodejs + express js
   
   ` npm start  `
 
+# Features
+- User registration and authentication
+- Product listing and mangement
+- Shopping cart
+- Order Management
+- Payment Integration
+- User Mangement
+- Product reviews and ratings
+
 # Testing
 - all Endpoints are tested
 

@@ -16,13 +16,13 @@ class UserAuth {
             if (role) {
                 const roles = await service.role.findRole(role)
                 roles && role.length > 0 ? newUser.setRoles(roles) : newUser.setRoles([1])
-                return res.status(201).json(new SuccessResponse('user Registration succesfull', {
+                return res.status(201).json(new SuccessResponse('user registration succesfull', {
                     userId: newUser.id, username: newUser.username, email: newUser.email
                 }))
             }
         } catch (err) {
             console.log(err)
-            return (res.status(500).json(new ErrorResponse('User registration Failed')))
+            return res.status(500).json(new ErrorResponse('User registration Failed'))
 
         }
     }
