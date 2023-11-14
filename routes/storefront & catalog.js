@@ -5,7 +5,7 @@ const middleware = require('../middleware/index')
 
 /** 
  * @openapi
- * /storefront/product-list:
+ * /api/storefront/product-list:
  *  get:
  *     tags:
  *     - Storefront
@@ -14,10 +14,10 @@ const middleware = require('../middleware/index')
  *       200:
  *         description: products successfully retrieved
 */
-router.get('/storefront/product-list', controller.storefrontController.Storefront.listAllProducts)
+router.get('/api/storefronts/products/list-product', controller.storefrontController.Storefront.listAllProducts)
 /** 
  * @openapi
- * /storefront/product/search:
+ * /api/storefront/product/search:
  *  get:
  *     tags:
  *     - Storefront
@@ -26,10 +26,10 @@ router.get('/storefront/product-list', controller.storefrontController.Storefron
  *       200:
  *         description: products successfully retrieved
 */
-router.get('/storefront/product/search', controller.storefrontController.Storefront.searchProduct )
+router.get('/api/storefronts/products/search', controller.storefrontController.Storefront.searchProduct )
 /** 
  * @openapi
- * /storefront/categories/category-list:
+ * /api/storefront/categories/category-list:
  *  get:
  *     tags:
  *     - Storefront
@@ -38,10 +38,10 @@ router.get('/storefront/product/search', controller.storefrontController.Storefr
  *       200:
  *         description: category successfully retrieved
 */
-router.get('/storefront/categories/category-list', controller.categoryController.Category.listCategories)
+router.get('/api/storefronts/categories/list-category', controller.categoryController.Category.listCategories)
 /** 
  * @openapi
- * /storefront/categories/category-list:
+ * /api/storefront/categories/category-list:
  *  get:
  *     tags:
  *     - Storefront
@@ -50,10 +50,10 @@ router.get('/storefront/categories/category-list', controller.categoryController
  *       200:
  *         description: category successfully retrieved
 */
-router.get('/storefront/categories/product/:id', controller.categoryController.Category.findCategory)
+router.get('/api/storefronts/categories/product/:id', controller.categoryController.Category.findCategory)
 /** 
  * @openapi
- * /catalog/product/:id:
+ * /api/catalog/product/:id:
  *  get:
  *     tags:
  *     - Catalog
@@ -62,7 +62,7 @@ router.get('/storefront/categories/product/:id', controller.categoryController.C
  *       200:
  *         description: product successfully retrieved
 */
-router.get('/catalog/product/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.catalogController.Catalog.productDetails)
+router.get('/api/catalogs/products/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.catalogController.Catalog.productDetails)
 
 
 module.exports = router

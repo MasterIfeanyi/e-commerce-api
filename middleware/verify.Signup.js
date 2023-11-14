@@ -5,8 +5,8 @@ const service = require('../service/index')
 class VerifySignUp {
 
     static async userSignUpverification(req, res, next) {
-        const { username, email, role } = req.body
         try {
+            const { username, email, role } = req.body
             const usernameCheck = await service.user.findUsername(username)
             if (usernameCheck) {
                 return res.status(400).json(new ErrorResponse('username is already in use!'))

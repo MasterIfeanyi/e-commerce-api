@@ -1,4 +1,4 @@
-# Note-API
+# Ecommerce-API
 This is an ECOMMERCE API built with Nodejs + express js
 
 # Pre-requisites

@@ -4,8 +4,8 @@ const { ErrorResponse, SuccessResponse } = require('../../../middleware/index')
 class UserAccount {
 
     static async createProfile(req, res){
-        const { firstname, lastname, phone} = req.body
         try{
+            const { firstname, lastname, phone} = req.body
             const newProfile = await service.profileService.createProfile(firstname, lastname, phone, req.id)
             if(!newProfile){
                 return res.status(400).json( new ErrorResponse('user profile not created'))
@@ -33,8 +33,8 @@ class UserAccount {
 
     //Update Profile associated with the user
     static async updateProfile(req, res){
-        const { firstname, lastname, phone,  email } = req.body
         try{
+          const { firstname, lastname, phone,  email } = req.body
             const profile = await service.profileService.updateProfile(firstname, lastname, phone, req.id)
             const updateUser = await service.user.updateUser(email, req.id)
             if(!profile || !updateUser){

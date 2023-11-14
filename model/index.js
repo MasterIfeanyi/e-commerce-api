@@ -11,6 +11,8 @@ db.passwordresettokenModel = require('./passwordreset')
 db.cartModel = require('./cart')
 db.reviewModel = require('./review')
 db.ratingModel = require('./rating')
+db.orderModel = require('./order')
+db.paymentModel = require('./payment')
 
 // M : M Assocaiation
 db.userModel.User.belongsToMany(db.roleModel.Role, { through : 'user_role', onDelete : 'CASCADE'})
@@ -51,6 +53,16 @@ db.reviewModel.Review.belongsTo(db.userModel.User, { onDelete : 'CASCADE'})
 db.userModel.User.hasMany(db.ratingModel.Rating, { onDelete : 'CASCADE'})
 
 db.ratingModel.Rating.belongsTo(db.userModel.User, { onDelete : 'CASCADE'})
+
+// 1 : M Association
+db.userModel.User.hasMany(db.orderModel.Order, { onDelete : 'CASCADE'}),
+
+db.orderModel.Order.belongsTo(db.userModel.User, { onDelete : 'CASCADE'})
+
+// M : M Association
+db.orderModel.Order.belongsToMany(db.productModel.Product, { through : 'order_product', onDelete : 'CASCADE'}),
+
+db.productModel.Product.belongsToMany(db.orderModel.Order, { through : 'order_product', onDelete : 'CASCADE'})
 
 
 //Roles

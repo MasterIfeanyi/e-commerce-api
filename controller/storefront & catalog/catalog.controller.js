@@ -5,8 +5,8 @@ const service = require('../../service')
 class Catalog {
 
     static async productDetails(req, res) {
-        const  productId  = req.params.id
         try {
+            const  productId  = req.params.id
             const product = await service.productService.findProducts(productId)
             if (!product) {
                 return res.status(404).json(new ErrorResponse('product not found'))

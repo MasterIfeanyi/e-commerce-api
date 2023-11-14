@@ -63,9 +63,9 @@ class Seller {
 
     //update a product associated with the user who has the seller role
     static async updateProduct(req, res) {
-        const productId = req.params.id
-        const { name, description, brand, price, category, variant, availability } = req.body
         try {
+            const productId = req.params.id
+            const { name, description, brand, price, category, variant, availability } = req.body
             const updateProductViaId = await service.productService.updateSellerProduct(productId, name, description, brand, price, category, variant, availability, req.id)
             if (!updateProductViaId) {
                 return res.status(404).json(new ErrorResponse('product not found '))
@@ -81,10 +81,10 @@ class Seller {
 
     //delete a product associated with the user who has the seller role
     static async deleteProduct(req, res) {
-        const productId = req.params.id
         try {
-            const deleteProductViaId = await service.productService.deleteSellerProduct(req.id, productId)
-            if (!deleteProductViaId) {
+            const productId = req.params.id
+            const product = await service.productService.deleteSellerProduct(req.id, productId)
+            if (!product) {
                 return res.status(404).json(new ErrorResponse('product not found'))
             }
             return res.status(200).json(new SuccessResponse('product was successfully deleted'))

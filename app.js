@@ -21,7 +21,9 @@ var storefrontRouter = require('./routes/storefront & catalog')
 var usersRouter = require('./routes/users')
 var adminRouter = require('./routes/admin')
 var ratingReviewRouter = require('./routes/rating & review')
-var cartCheckoutRouter = require('./routes/cart & checkout')
+var cartRouter = require('./routes/cart')
+var checkoutRouter = require('./routes/checkout')
+var paymentRouter = require('./routes/payment')
 var { dbConnection } = require('./config/db.config')
 
 //sync models
@@ -49,7 +51,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/',  baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartCheckoutRouter )
+app.use('/',  baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartRouter, checkoutRouter, paymentRouter )
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 

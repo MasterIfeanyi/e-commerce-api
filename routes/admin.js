@@ -5,7 +5,7 @@ const middleware = require('../middleware/index')
 
 /** 
  * @openapi
- * /admin/users:
+ * /api/admin/users:
  *  post:
  *     tags:
  *     - Admin
@@ -29,10 +29,10 @@ const middleware = require('../middleware/index')
  *       400:
  *         description: Unable to add a new user
 */
-router.post('/admin/users', middleware.verifySignUp.userSignUpverification, middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.adminRoleController.Admin.addUser)
+router.post('/api/admin/users', middleware.verifySignUp.userSignUpverification, middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.adminRoleController.Admin.addUser)
 /** 
  * @openapi
- * /admin/users/user-list:
+ * /api/admin/users/user-list:
  *  get:
  *     tags:
  *     - Admin
@@ -41,10 +41,10 @@ router.post('/admin/users', middleware.verifySignUp.userSignUpverification, midd
  *       200:
  *         description:   users succesfully retrieved 
 */
-router.get('/admin/users/user-list', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.adminRoleController.Admin.listUser)
+router.get('/api/admin/users/user-list', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.adminRoleController.Admin.listUser)
 /** 
  * @openapi
- * /admin/users/:id:
+ * /api/admin/users/:id:
  *  delete:
  *     tags:
  *     - Admin
@@ -53,10 +53,10 @@ router.get('/admin/users/user-list', middleware.userTokenVerification, middlewar
  *       200:
  *         description:  user succesfully deleted
 */
-router.delete('/admin/users/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.adminRoleController.Admin.deleteUser )
+router.delete('/api/admin/users/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.adminRoleController.Admin.deleteUser )
 /** 
  * @openapi
- * /admin/categories:
+ * /api/admin/categories:
  *  post:
  *     tags:
  *     - Admin
@@ -65,7 +65,7 @@ router.delete('/admin/users/:id', middleware.userTokenVerification, middleware.c
  *       200:
  *         description: category successfully created
 */
-router.post('/admin/categories',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.addCategory)
+router.post('/api/admin/categories',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.addCategory)
 /** 
  * @openapi
  * /admin/categories/category-list:
@@ -77,10 +77,10 @@ router.post('/admin/categories',  middleware.userTokenVerification, middleware.c
  *       200:
  *         description: category successfully retrieved
 */
-router.get('/admin/categories/category-list',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.listCategories)
+router.get('/api/admin/categories/list-category',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.listCategories)
 /** 
  * @openapi
- * /admin/categories/:id:
+ * /api/admin/categories/:id:
  *  patch:
  *     tags:
  *     - Admin
@@ -89,10 +89,10 @@ router.get('/admin/categories/category-list',  middleware.userTokenVerification,
  *       200:
  *         description: category successfully updated
 */
-router.patch('/admin/categories/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.updateCategory)
+router.patch('/api/admin/categories/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.updateCategory)
 /** 
  * @openapi
- * /admin/categories/:id:
+ * /api/admin/categories/:id:
  *  delete:
  *     tags:
  *     - Admin
@@ -101,5 +101,5 @@ router.patch('/admin/categories/:id', middleware.userTokenVerification, middlewa
  *       200:
  *         description: category successfully deleted
 */
-router.delete('/admin/categories/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.deleteCategory)
+router.delete('/api/admin/categories/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.categoryController.Category.deleteCategory)
 module.exports = router

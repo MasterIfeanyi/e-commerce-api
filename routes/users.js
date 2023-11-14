@@ -5,7 +5,7 @@ const middleware = require('../middleware/index')
 
 /** 
  * @openapi
- * /users:
+ * /api/users:
  *  post:
  *     tags:
  *     - User
@@ -14,10 +14,10 @@ const middleware = require('../middleware/index')
  *       200:
  *         description: profile successfully created
 */
-router.post('/users', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.createProfile)
+router.post('/api/users', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.createProfile)
 /** 
  * @openapi
- * /users/profile:
+ * /api/users/profile:
  *  get:
  *     tags:
  *     - User
@@ -26,10 +26,10 @@ router.post('/users', middleware.userTokenVerification, middleware.checkIfTokenI
  *       200:
  *         description: profile successfully retrieved
 */
-router.get('/users/profile', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.getProfile)
+router.get('/api/users/profile', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.getProfile)
 /** 
  * @openapi
- * /users/update-profile:
+ * /api/users/update-profile:
  *  patch:
  *     tags:
  *     - User
@@ -38,10 +38,10 @@ router.get('/users/profile', middleware.userTokenVerification, middleware.checkI
  *       200:
  *         description: profile successfully updated
 */
-router.patch('/users/update-profile', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.updateProfile )
+router.patch('/api/users/update-profile', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.updateProfile )
 /** 
  * @openapi
- * /users/account:
+ * /api/users/account:
  *  delete:
  *     tags:
  *     - User
@@ -50,7 +50,7 @@ router.patch('/users/update-profile', middleware.userTokenVerification, middlewa
  *       200:
  *         description: account successfully deleted
 */
-router.delete('/users/account', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.deleteAccount)
+router.delete('/api/users/account', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.accountController.UserAccount.deleteAccount)
 
 
 

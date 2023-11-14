@@ -8,5 +8,8 @@ const categoryController = require('./categories/category')
 const reviewController = require('./review & rating/review.controller')
 const ratingController = require('./review & rating/rating.controller')
 const cartController = require('./cart & checkout/cart.controller')
+const checkoutController = require('./cart & checkout/checkout.controller')
+const paymentController = require('./payment gateway/payment.controller')
+
 module.exports = {  userController, sellerRoleController, adminRoleController, storefrontController, catalogController, accountController, categoryController,
-reviewController, ratingController, cartController }
+reviewController, ratingController, cartController, checkoutController, paymentController }

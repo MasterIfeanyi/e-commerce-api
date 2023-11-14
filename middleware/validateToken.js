@@ -5,8 +5,8 @@ const service = require('../service/index')
 class ValidateToken {
 
     static  async checkTokenBlackList(req, res, next){
-        const accessToken  = req.headers.authorization
         try{
+            const accessToken  = req.headers.authorization
             if(!accessToken){
                 return res.status(200).json( new ErrorResponse('access token is required')) 
             }

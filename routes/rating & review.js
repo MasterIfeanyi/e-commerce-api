@@ -3,11 +3,11 @@ const router = express.Router()
 const controller = require('../controller/index')
 const middleware = require('../middleware/index')
 
-//review routes
+
 
 /** 
  * @openapi
- * /reviews:
+ * /api/reviews:
  *  post:
  *     tags:
  *     - Review
@@ -16,10 +16,10 @@ const middleware = require('../middleware/index')
  *       200:
  *         description: review successfully added
 */
-router.post('/reviews', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.addReview )
+router.post('/api/reviews', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.addReview )
 /** 
  * @openapi
- * /reviews/review-list:
+ * /api/reviews/review-list:
  *  get:
  *     tags:
  *     - Review
@@ -28,10 +28,10 @@ router.post('/reviews', middleware.userTokenVerification, middleware.checkIfToke
  *       200:
  *         description: reviews succsessfully retrieved
 */
-router.get('/reviews/review-list',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.listReviews )
+router.get('/api/reviews/list-review',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.listReviews )
 /** 
  * @openapi
- * /reviews/:id:
+ * /api/reviews/:id:
  *  get:
  *     tags:
  *     - Review
@@ -40,10 +40,10 @@ router.get('/reviews/review-list',  middleware.userTokenVerification, middleware
  *       200:
  *         description: review successfully retrieved
 */
-router.get('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.reviewController.Review.findReview)
+router.get('/api/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.reviewController.Review.findReview)
 /** 
  * @openapi
- * /reviews/:id:
+ * /api/reviews/update-review/:id:
  *  patch:
  *     tags:
  *     - Review
@@ -52,10 +52,10 @@ router.get('/reviews/:id',  middleware.userTokenVerification, middleware.checkIf
  *       200:
  *         description: review successfully updated
 */
-router.patch('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.updateReview)
+router.patch('/api/reviews/update-review/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.updateReview)
 /** 
  * @openapi
- * /reviews/:id:
+ * /api/reviews/delete-review/:id:
  *  delete:
  *     tags:
  *     - Review
@@ -64,14 +64,14 @@ router.patch('/reviews/:id',  middleware.userTokenVerification, middleware.check
  *       200:
  *         description: review successfully deleted
 */
-router.delete('/reviews/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.deleteReview)
+router.delete('/api/reviews/delete-review/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.reviewController.Review.deleteReview)
 
 
 //rating routes
 
 /** 
  * @openapi
- * /ratings:
+ * /api/ratings:
  *  post:
  *     tags:
  *     - Rating
@@ -80,10 +80,10 @@ router.delete('/reviews/:id',  middleware.userTokenVerification, middleware.chec
  *       201:
  *         description: rating successfully added
 */
-router.post('/ratings',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.addRating)
+router.post('/api/ratings',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.addRating)
 /** 
  * @openapi
- * /ratings/rating-list:
+ * /api/ratings/list-rating:
  *  get:
  *     tags:
  *     - Rating
@@ -92,10 +92,10 @@ router.post('/ratings',  middleware.userTokenVerification, middleware.checkIfTok
  *       200:
  *         description: rating successfully retrieved
 */
-router.get('/ratings/rating-list',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.listRatings)
+router.get('/api/ratings/list-rating',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.listRatings)
 /** 
  * @openapi
- * /ratings/:id:
+ * /api/ratings/:id:
  *  get:
  *     tags:
  *     - Rating
@@ -104,10 +104,10 @@ router.get('/ratings/rating-list',  middleware.userTokenVerification, middleware
  *       200:
  *         description: rating successfully added
 */
-router.get('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.ratingController.Rating.findRating)
+router.get('/api/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted,  controller.ratingController.Rating.findRating)
 /** 
  * @openapi
- * /ratings/:id:
+ * /api/ratings/update-rating/:id:
  *  patch:
  *     tags:
  *     - Rating
@@ -116,10 +116,10 @@ router.get('/ratings/:id',  middleware.userTokenVerification, middleware.checkIf
  *       200:
  *         description: rating successfully updated
 */
-router.patch('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.updateRating)
+router.patch('/api/ratings/update-rating/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.updateRating)
 /** 
  * @openapi
- * /seller/product:
+ * /api/ratings/delete-rating/:id:
  *  delete:
  *     tags:
  *     - Rating
@@ -128,7 +128,7 @@ router.patch('/ratings/:id',  middleware.userTokenVerification, middleware.check
  *       200:
  *         description: rating successfully deleted
 */
-router.delete('/ratings/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.deleteRating)
+router.delete('/api/ratings/delete-rating/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, controller.ratingController.Rating.deleteRating)
 
 
 

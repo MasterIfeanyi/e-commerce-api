@@ -19,8 +19,8 @@ class Storefront {
     }
 
     static async searchProduct(req, res) {
-        const { searchQuery } = req.query
         try {
+            const { searchQuery } = req.query
             const product = await service.productService.searchProduct(searchQuery)
             if (product.length !== 0) {
                 return res.status(200).json(new SuccessResponse(' product successfully retrieved', product))

@@ -8,8 +8,8 @@ const { v4: uuid } = require('uuid')
 class UserAuth {
 
     static async registration(req, res) {
-        const { username, email, role, password } = req.body
         try {
+            const { username, email, role, password } = req.body
             const newUser = await service.user.createUser(username, email, password)
             if (!newUser)
                 return res.status(400).json(new ErrorResponse('user registration was not succesfull'))
@@ -29,8 +29,8 @@ class UserAuth {
 
 
     static async login(req, res) {
-        const { username, password } = req.body
         try {
+            const { username, password } = req.body
             const findUser = await service.user.findUsername(username)
             if (!findUser)
                 return res.status(400).json(new ErrorResponse('incorrect username'))
@@ -62,8 +62,8 @@ class UserAuth {
 
 
     static async refreshAndVerifyToken(req, res) {
-        const { refreshtoken } = req.body
         try {
+            const { refreshtoken } = req.body
             const findToken = await service.refreshTokenService.findToken(refreshtoken)
             if (!findToken)
                 return res.status(404).json(new ErrorResponse("refreshToken does not exist"))
@@ -83,8 +83,8 @@ class UserAuth {
     }
 
     static async forgotPassword(req, res) {
-        const { email } = req.body
         try {
+            const { email } = req.body
             const findUerEmail = await service.user.findEmail(email)
             if (!findUerEmail) {
                 return res.status(404).json(new ErrorResponse("email does not exist!"))
@@ -105,9 +105,9 @@ class UserAuth {
     }
 
     static async resetPassword(req, res) {
-        const token = req.params
-        const { newPassword } = req.body
         try {
+            const token = req.params
+            const { newPassword } = req.body
             const checkForTokenExistence = await service.resetPassword.ResetPasswordService.findResetToken(token)
             if (checkForTokenExistence.expireAt < Date.now()) {
                 return res.status(400).json(new ErrorResponse('expired Token '))
@@ -125,9 +125,9 @@ class UserAuth {
     }
 
     static async logout(req, res) {
-        const accessToken = req.headers.authorization
-        const { refreshToken } = req.body
         try {
+            const accessToken = req.headers.authorization
+            const { refreshToken } = req.body
             const createInvalidToken = await service.validateService.createInvalidToken(accessToken)
             const deleteRefreshToken = await service.refreshTokenService.deleteToken(refreshToken)
             if (!createInvalidToken && !deleteRefreshToken) {

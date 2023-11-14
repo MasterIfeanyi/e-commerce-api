@@ -5,8 +5,8 @@ const service = require('../../service')
 class Review {
 
     static async addReview(req, res){
-        const { name, title, content,  } = req.body
         try{
+            const { name, title, content,  } = req.body
             const newReview = await service.reviewService.createReview(name, title, content, req.id)
             if(!newReview){
              return res.status(400).json(new ErrorResponse('review not created'))
@@ -20,8 +20,8 @@ class Review {
     }
 
     static async findReview(req, res){
-        const  reviewId  = req.params.id
         try{
+            const  reviewId  = req.params.id
             const review = await service.reviewService.findReview(reviewId)
             if(!review){
                 return res.status(404).json(new ErrorResponse('review not found'))
@@ -48,9 +48,9 @@ class Review {
     }
 
     static async updateReview(req, res){
-        const reviewId = req.params.id
-        const { title, content  } = req.body
         try{
+            const reviewId = req.params.id
+            const { title, content  } = req.body
             const review = await service.reviewService.updateReview(title, content, reviewId, req.id)
             if(!review){
                 return res.status(404).json(new ErrorResponse('review not found'))  
@@ -63,8 +63,8 @@ class Review {
     }
 
     static async deleteReview(req, res){
-        const reviewId = req.params.id 
         try{
+            const reviewId = req.params.id 
             const review = await service.reviewService.deleteReview(reviewId, req.id)
             if(!review){
                 return res.status(404).json(new ErrorResponse('review not found')) 

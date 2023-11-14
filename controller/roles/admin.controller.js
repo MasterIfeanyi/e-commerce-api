@@ -5,8 +5,8 @@ const service = require('../../service')
 class Admin {
 
     static async addUser(req, res) {
-        const { username, email, role, password } = req.body
         try {
+            const { username, email, role, password } = req.body
             const newUser = await service.user.createUser(username, email, password)
             if (!newUser)
                 return res.status(400).json(new ErrorResponse('unable to add a new user'))
@@ -41,8 +41,8 @@ class Admin {
 
 
     static async deleteUser(req, res) {
-        const userId = req.params.id
         try {
+            const userId = req.params.id
             const deleteUser = service.user.deleteUser(userId)
             if (!deleteUser) {
                 return res.status(404).json(new ErrorResponse('user not found'))

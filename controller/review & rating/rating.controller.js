@@ -5,8 +5,8 @@ const service = require('../../service')
 class Rating {
 
     static async addRating(req, res){
-        const { rating } = req.body
         try{
+            const { rating } = req.body
             const newRating = await service.ratingService.createRating(rating, req.id)
             if(!newRating){
                 return res.status(400).json(new ErrorResponse('rating not created'))
@@ -18,8 +18,8 @@ class Rating {
     }
 
     static async findRating(req, res){
-        const  ratingId = req.params.id
         try{
+            const  ratingId = req.params.id
             const rating = await service.ratingService.findRating(ratingId)
             if(!rating){
                 return res.status(404).json(new ErrorResponse('rating not found')) 
@@ -43,9 +43,9 @@ class Rating {
     }
    
     static async updateRating(req, res){
-        const ratingId = req.params.id
-        const { rating } = req.body
         try{
+            const ratingId = req.params.id
+            const { rating } = req.body
             const rate = await service.ratingService.updateRating(rating, ratingId, req.id)
             if(!rate){
                 return res.status(404).json(new ErrorResponse('rating not found'))   
@@ -60,8 +60,8 @@ class Rating {
 
 
     static async deleteRating(req, res){
-        const ratingId = req.params.id
         try{
+            const ratingId = req.params.id
             const rating = await service.ratingService.deleteRating(ratingId, req.id)
             if(!rating){
                 return res.status(400).json(new ErrorResponse('rating not found'))   

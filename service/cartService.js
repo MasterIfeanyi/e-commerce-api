@@ -69,6 +69,15 @@ class CartService {
         }
     }
 
+    async getCartItems(userId){
+        try{
+            const result = await this.model.findAll({ where : { userId : userId }})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
     async deleteCart(cartId, userId) {
         try {
             const result = await this.model.destroy({ where: { id: cartId, userId : userId } })

@@ -9,7 +9,7 @@ const validations = require('../utils/index')
 
 /** 
  * @openapi
- * /seller/product:
+ * /api/seller/product:
  *  post:
  *     tags:
  *     - Seller
@@ -18,10 +18,10 @@ const validations = require('../utils/index')
  *       200:
  *         description: product successfully added
 */
-router.post('/sellers/product', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, upload.fields([{ name : 'display_image', maxCount : 1 }, { name : 'images', maxCount : 3}]) , controller.sellerRoleController.Seller.addProduct)
+router.post('/api/sellers/product', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, upload.fields([{ name : 'display_image', maxCount : 1 }, { name : 'images', maxCount : 3}]) , controller.sellerRoleController.Seller.addProduct)
 /** 
  * @openapi
- * /seller/product:
+ * /api/seller/product:
  *  get:
  *     tags:
  *     - Seller
@@ -30,10 +30,10 @@ router.post('/sellers/product', middleware.userTokenVerification, middleware.che
  *       200:
  *         description: product successfully retrieved
 */
-router.get('/sellers/product-list',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.listProducts)
+router.get('/api/sellers/list-product',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.listProducts)
 /** 
  * @openapi
- * /sellers/product:id:
+ * /api/sellers/product:id:
  *  patch:
  *     tags:
  *     - Seller
@@ -42,10 +42,10 @@ router.get('/sellers/product-list',middleware.userTokenVerification, middleware.
  *       200:
  *         description: product successfully updated
 */
-router.patch('/sellers/product/:id',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.updateProduct)
+router.patch('/api/sellers/update-product/:id',middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.updateProduct)
 /** 
  * @openapi
- * /sellers/product/:id:
+ * /api/sellers/product/:id:
  *  post:
  *     tags:
  *     - Seller
@@ -54,6 +54,6 @@ router.patch('/sellers/product/:id',middleware.userTokenVerification, middleware
  *       200:
  *         description: product successfully deleted
 */
-router.delete('/sellers/product/:id',middleware.userTokenVerification,  middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.deleteProduct)
+router.delete('/api/sellers/delete-product/:id',middleware.userTokenVerification,  middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.sellerRoleController.Seller.deleteProduct)
 
 module.exports = router

@@ -14,10 +14,10 @@ const middleware = require('../middleware/index')
  *       200:
  *         description: product successfully added
 */
-router.post('/carts/product/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.addTocart )
+router.post('/api/carts/product/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.addTocart )
 /** 
  * @openapi
- * /carts/product:
+ * /api/carts/product:
  *  get:
  *     tags:
  *     - Cart
@@ -26,10 +26,10 @@ router.post('/carts/product/:id', middleware.userTokenVerification, middleware.c
  *       200:
  *         description: product successfully retrieved
 */
-router.get('/carts/product',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.listCart)
+router.get('/api/carts/product',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.listCart)
 /** 
  * @openapi
- * /carts/increase/:id:
+ * /api/carts/increase/:id:
  *  patch:
  *     tags:
  *     - Cart
@@ -38,10 +38,10 @@ router.get('/carts/product',  middleware.userTokenVerification, middleware.check
  *       200:
  *         description: product quantity successfully increased
 */
-router.patch('/carts/increase/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.increaseCart)
+router.patch('/api/carts/increase/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.increaseCart)
 /** 
  * @openapi
- * /carts/decrease/:id:
+ * /api/carts/decrease/:id:
  *  patch:
  *     tags:
  *     - Cart
@@ -50,10 +50,10 @@ router.patch('/carts/increase/:id', middleware.userTokenVerification, middleware
  *       200:
  *         description: product quantity successfully decreased
 */
-router.patch('/carts/decrease/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.decreaseCart)
+router.patch('/api/carts/decrease/:id', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.decreaseCart)
 /** 
  * @openapi
- * /carts/product/:id:
+ * /api/carts/product/:id:
  *  delete:
  *     tags:
  *     - Cart
@@ -62,10 +62,10 @@ router.patch('/carts/decrease/:id', middleware.userTokenVerification, middleware
  *       200:
  *         description: product  successfully deleted
 */
-router.delete('/carts/product/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.deleteCart )
+router.delete('/api/carts/product/:id',  middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.deleteCart )
 /** 
  * @openapi
- * /carts/subtotal:
+ * /api/carts/subtotal:
  *  get:
  *     tags:
  *     - Cart
@@ -74,7 +74,9 @@ router.delete('/carts/product/:id',  middleware.userTokenVerification, middlewar
  *       200:
  *         description:cart subtotal successfully retrieved
 */
-router.get('/carts/subtotal', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.getSubtotal)
+router.get('/api/carts/subtotal', middleware.userTokenVerification, middleware.checkIfTokenIsBlaclisted, middleware.sellerAuth, controller.cartController.Cart.getSubtotal)
+
+
 
 
 module.exports = router

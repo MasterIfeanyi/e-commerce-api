@@ -5,8 +5,8 @@ const service = require('../../service')
 class Category {
 
     static async addCategory(req, res) {
-        const { name } = req.body
         try {
+            const { name } = req.body
             const newCategory = await service.category.createCategory(name)
             if (!newCategory) {
                 return res.status(400).json(new ErrorResponse('category not created'))
@@ -36,8 +36,8 @@ class Category {
     }
 
     static async findCategory(req, res) {
-        const categoryId  = req.params.id
         try {
+            const categoryId  = req.params.id
             const category = await service.productService.listProductFromCategory(categoryId)
             if (!category) {
                 return res.status(404).json(new ErrorResponse('category  not found'))
@@ -51,9 +51,9 @@ class Category {
 
 
     static async updateCategory(req, res) {
-        const  categoryId  = req.params.id
-        const { name } = req.body
         try {
+            const  categoryId  = req.params.id
+            const { name } = req.body
             const category = await service.category.updateCategory(name, categoryId)
             if (!category) {
                 return res.status(404).json(new ErrorResponse('category not found'))
@@ -68,8 +68,8 @@ class Category {
     }
 
     static async deleteCategory(req, res) {
-        const  categoryId  = req.params.id
         try {
+            const  categoryId  = req.params.id
             const category = await service.category.deleteCategory(categoryId)
             if (!category) {
                 return res.status(404).json(new ErrorResponse('category not found'))

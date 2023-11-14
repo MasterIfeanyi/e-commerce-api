@@ -11,7 +11,7 @@ const router = express.Router()
  *       200:
  *         description: API is  running
 */
-router.get('/healthcheck', (req, res) => {
+router.get('/', (req, res) => {
     res.status(200).json({ message: 'API is running' })
 })
 

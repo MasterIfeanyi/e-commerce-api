@@ -6,8 +6,8 @@ class Cart {
 
     //add product selected by user to cart
     static async addTocart(req, res) {
-        const productId = req.params.id
         try {
+            const productId = req.params.id
             const product = await service.productService.findOneProduct(productId)
             if (product.quantity >= 1) {
                 const newCart = await service.cartService.createCart(productId, req.id)
@@ -46,8 +46,8 @@ class Cart {
 
     //increase the Quantity of the product added to the user cart
     static async increaseCart(req, res) {
-        const cartId = req.params.id
         try {
+            const cartId = req.params.id
             const cart = await service.cartService.increaseCart(cartId, req.id)
             if (!cart) {
                 return res.status(404).json(new ErrorResponse('cart item not found'))
@@ -61,8 +61,8 @@ class Cart {
 
     //decrease the Quantity of the product added to the user cart
     static async decreaseCart(req, res) {
-        const cartId = req.params.id
         try {
+            const cartId = req.params.id
             const cart = await service.cartService.decreaseCart(cartId, req.id)
             if (!cart) {
                 return res.status(404).json(new ErrorResponse('cart item not found'))
@@ -93,8 +93,8 @@ class Cart {
 
     //delete an item from cart
     static async deleteCart(req, res) {
-        const cartId = req.params.id
         try {
+            const cartId = req.params.id
             const cart = await service.cartService.deleteCart(cartId, req.id)
             if (!cart) {
                 return res.status(404).json(new ErrorResponse('cart item not found'))
