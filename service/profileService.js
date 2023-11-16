@@ -14,6 +14,15 @@ class UserProfileService {
         } 
     }
 
+    async findProfile(userId){
+        try{
+            const result = await this.model.findOne({ where : { userId : userId }})
+            return result
+        }catch(err){
+            throw err
+        }
+    }
+
     async viewProfile(id){
         try {
             const result = await this.model.findAll({ where : { userId : id}, include : [{ model: db.userModel.User, attributes : ['username', 'email']}], attributes : ['firstname','lastname','phone']})

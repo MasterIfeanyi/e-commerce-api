@@ -64,9 +64,18 @@ db.orderModel.Order.belongsToMany(db.productModel.Product, { through : 'order_pr
 
 db.productModel.Product.belongsToMany(db.orderModel.Order, { through : 'order_product', onDelete : 'CASCADE'})
 
+// 1 : M Association
+db.userModel.User.hasMany(db.paymentModel.Payment, { onDelete : 'CASCADE'})
+
+db.paymentModel.Payment.belongsTo(db.userModel.User, { onDelete : 'CASCADE'})
+
+// 1 : 1 Association
+db.orderModel.Order.hasOne(db.paymentModel.Payment, {  onDelete : 'CASCADE'})
+
+db.paymentModel.Payment.belongsTo(db.orderModel.Order, { onDelete : 'CASCADE'})
 
 //Roles
-db.ROLE = ["user", "seller", "admin"]
+db.ROLE = ['user', 'seller', 'admin']
 
 
 module.exports = { db }

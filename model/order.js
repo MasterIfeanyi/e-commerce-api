@@ -18,9 +18,10 @@ Order.init({
     },
 
     totalAmount : {
-        type : DataTypes.DECIMAL,
+        type : DataTypes.BIGINT,
         allowNull : false
     }
+    
 }, {
     sequelize,
     modelName : 'order',

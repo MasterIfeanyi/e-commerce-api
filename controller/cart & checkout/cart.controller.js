@@ -80,7 +80,7 @@ class Cart {
         try {
             const cart = await service.cartService.cartSubtotal(req.id)
             if (!cart) {
-                return res.satus(404).json(new ErrorResponse('cart not found'))
+                return res.status(404).json(new ErrorResponse('cart not found'))
             }
             return res.status(200).json(new SuccessResponse('subtotal successfully retrieved', cart))
         } catch (err) {

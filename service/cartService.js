@@ -28,10 +28,10 @@ class CartService {
     }
 
     async updateCart(quantity, userId) {
-        try{
-            const result = await this.model.update({ quantity : quantity }, { where : { userId : userId }})
+        try {
+            const result = await this.model.update({ quantity: quantity }, { where: { userId: userId } })
             return result
-        }catch(err){
+        } catch (err) {
             throw err
 
         }
@@ -40,8 +40,8 @@ class CartService {
     async increaseCart(cartId, userId) {
         try {
             const result1 = await this.model.findOne({ where: { id: cartId, userId, userId } })
-            const cartQuantity = result1.quantity+=1
-            const result2 = await this.model.update({quantity: cartQuantity}, { where: { id: cartId, userId: userId } })
+            const cartQuantity = result1.quantity += 1
+            const result2 = await this.model.update({ quantity: cartQuantity }, { where: { id: cartId, userId: userId } })
             return result2
         } catch (err) {
             throw err
@@ -51,36 +51,39 @@ class CartService {
     async decreaseCart(cartId, userId) {
         try {
             const result1 = await this.model.findOne({ where: { id: cartId, userId: userId } })
-            const cartQuantity = result1.quantity-=1
-            const result2 = await this.model.update({ quantity: cartQuantity}, { where: { id: cartId, userId: userId } })
+            const cartQuantity = result1.quantity -= 1
+            const result2 = await this.model.update({ quantity: cartQuantity }, { where: { id: cartId, userId: userId } })
             return result2
         } catch (err) {
             throw err
         }
     }
 
-    async cartSubtotal(userId){
-        try{
-            const result1 = await this.model.findOne({ where: { userId: userId } })
-            const total = result1.price * result1.quantity
+    async cartSubtotal(userId) {
+        try {
+            const result1 = await this.model.findAll({ where: { userId: userId } })
+            const total = result1.reduce((total, currentItem) => {
+                const subtotal = currentItem.price * currentItem.quantity
+                return total + subtotal 
+            }, 0)
             return total
-        }catch(err){
+        } catch (err) {
             throw err
         }
     }
 
-    async getCartItems(userId){
-        try{
-            const result = await this.model.findAll({ where : { userId : userId }})
+    async getCartItems(userId) {
+        try {
+            const result = await this.model.findAll({ where: { userId: userId } })
             return result
-        }catch(err){
+        } catch (err) {
             throw err
         }
     }
 
     async deleteCart(cartId, userId) {
         try {
-            const result = await this.model.destroy({ where: { id: cartId, userId : userId } })
+            const result = await this.model.destroy({ where: { id: cartId, userId: userId } })
             return result
         } catch (err) {
             throw err
