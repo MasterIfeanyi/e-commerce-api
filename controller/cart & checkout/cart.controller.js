@@ -15,7 +15,7 @@ class Cart {
                     return res.status(400).json(new ErrorResponse('product not added to cart'))
                 }
                 await service.cartService.updateCart(1, req.id)
-                await service.productService.decreaseQuantity(1, productId)
+                // await service.productService.decreaseQuantity(1, productId)
                 return res.status(201).json(new SuccessResponse('product successfully added to cart', newCart))
             } else {
                 return res.status(400).json(new ErrorResponse(' product is out of stock'))
