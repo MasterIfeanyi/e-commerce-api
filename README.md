@@ -39,6 +39,6 @@ This is an ECOMMERCE API built with Nodejs + express js
 - nodemailer - the package used to send emails
 
 
-![Alt text](</config/swagger images/Screenshot (68).png>)![Alt text](/config/swagger%20images/image.png)![Alt text](/config/swagger%20images/image-1.png)![Alt text](/config/swagger%20images/image-2.png)![Alt text](/config/swagger%20images/image-3.png)![Alt text](/config//swagger%20images/image-4.png)![Alt text](/config//swagger%20images/image-5.png)
+![Alt text](</config/swagger images/Screenshot (68).png>)![Alt text](./config/swagger%20images/image.png)![Alt text](/config/swagger%20images/image-1.png)![Alt text](/config/swagger%20images/image-2.png)![Alt text](/config/swagger%20images/image-3.png)![Alt text](/config//swagger%20images/image-4.png)![Alt text](/config//swagger%20images/image-5.png)
 
 
