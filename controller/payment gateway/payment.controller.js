@@ -64,6 +64,7 @@ class Payment {
             }
             const orderDetails = await service.orderService.findOrder(req.id)
             await service.paymentService.createPayment(payload.data.amount, req.id, orderDetails.id)
+            await service.cartService.deleteCart(null,req.id)
             // await service.productService.decreaseQuantity(, productId)
             return res.status(200).json(new SuccessResponse('Payment succesfull'))
         } catch (err) {

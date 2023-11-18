@@ -1,17 +1,10 @@
 const express = require('express')
-const router = express.Router()
-/** 
- * @openapi
- * /healthcheck:
- *  get:
- *     tags:
- *     - Healthcheck
- *     description: Returns API operational status
- *     responses:
- *       200:
- *         description: API is  running
-*/
+const router = express.Router() 
+
 router.get('/', (req, res) => {
+     /* #swagger.tags = ['Base'] */  /* #swagger.security = [{
+    "bearerAuth": []
+}] */
     res.status(200).json({ message: 'API is running' })
 })
 

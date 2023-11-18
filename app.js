@@ -2,16 +2,13 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var { options } = require('./swagger')
+var helmet = require('helmet')
 require('dotenv').config()
 
 
 //swagger 
-var swaggerJsdoc = require('swagger-jsdoc')
+var autogenOutputFile = require('./swagger-output.json')
 var swaggerUi = require('swagger-ui-express')
-var swaggerSpec = swaggerJsdoc(options)
-
-
 
 
 var baseRouter = require('./routes/index');
@@ -46,13 +43,14 @@ databaseConnection()
 
 var app = express();
 
+app.use(helmet())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/',  baseRouter, authRouter, sellerRouter, storefrontRouter, usersRouter, adminRouter, ratingReviewRouter, cartRouter, checkoutRouter, paymentRouter )
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(autogenOutputFile))
 
 
 
