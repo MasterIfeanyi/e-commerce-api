@@ -41,7 +41,8 @@ This is an ECOMMERCE API built with Nodejs + express js
 
 
 # Postman Documentaion
-[doc]()
+- [Doc](https://github.com/HilaryEmmanuel/E-commerce-API/blob/main/E-commerce%20API.postman_collection.json)
+>>>>>>> a9ee7d75def453e52c3f096a1706dde7369d0475
 
 
 
