@@ -37,8 +37,11 @@ This is an ECOMMERCE API built with Nodejs + express js
 - supertest & mocha - packages used for testing
 - jsonwebtoken - the package used  for creation and verification of jwt token
 - nodemailer - the package used to send emails
+- cloudinary - the package used for file storage
 
 
+# Postman Documentaion
+<E-commerce API.postman_collection.json>
 
 
 
